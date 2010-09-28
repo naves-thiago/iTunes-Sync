@@ -1,7 +1,7 @@
 TiTunes Sync
 v7
 r0
-t307264504.123104
+t307345526.985932
 cCheck dependencies
 cProcessInfoPlistFile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Info.plist" iTunes_Sync-Info.plist
 cCopyStringsFile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
@@ -48,12 +48,12 @@ t1285570474
 s45
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib
-c000000004CA043CE000000000002DECD
-t1285571534
-s188109
+c000000004CA141270000000000031E13
+t1285636391
+s204307
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app
-t1285571704
+t1285652726
 s102
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Info.plist
@@ -61,8 +61,8 @@ t1285571701
 s898
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync
-t1285571704
-s15152
+t1285652726
+s16424
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/PkgInfo
 t1285571701
@@ -73,8 +73,8 @@ t1285571701
 s92
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj/MainMenu.nib
-t1285571701
-s35479
+t1285636398
+s39864
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes Sync.LinkFileList
 c000000004CA044740000000000000118
@@ -82,8 +82,8 @@ t1285571700
 s280
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes_SyncAppDelegate.o
-t1285571703
-s24684
+t1285652726
+s41156
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/main.o
 t1285571703
@@ -97,16 +97,16 @@ i<AppKit/AppKit.h>
 i<ScriptingBridge/ScriptingBridge.h>
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.h
-c000000004CA044140000000000000190
-t1285571604
-s400
+c000000004CA180F4000000000000027B
+t1285652724
+s635
 i<Cocoa/Cocoa.h>
 i"iTunes.h"
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m
-c000000004CA04472000000000000025A
-t1285571698
-s602
+c000000004CA180F0000000000000081D
+t1285652720
+s2077
 i"iTunes_SyncAppDelegate.h"
 
 N/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_Sync_Prefix.pch
@@ -132,11 +132,11 @@ s1002
 
 CCheck dependencies
 r0
-lSLF07#2@18"Check dependencies307264500#307264500#0(0"0(0#1#0"32651522506817640#0"0#
+lSLF07#2@18"Check dependencies307345526#307345526#0(0"0(0#1#0"8622024832#0"0#
 
 CCompileC "build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes_SyncAppDelegate.o" "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
-s307264503.618646
-e307264503.783053
+s307345526.854749
+e307345526.957178
 r1
 xCompileC
 xbuild/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes_SyncAppDelegate.o
@@ -145,7 +145,7 @@ xnormal
 xx86_64
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@86"Compile /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m307264503#307264503#0(0"0(0#0#78"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m8619383904#1753"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-generated-files.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-own-target-headers.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-all-target-headers.hmap" -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-project-headers.hmap" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/include" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources/x86_64" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources" -include /var/folders/ui/ui0otfZAGUaNhFpzIA6S2k+++TQ/-Caches-/com.apple.Xcode.503/SharedPrecompiledHeaders/iTunes_Sync_Prefix-debgplvzbiwwrvbqlbmkjazfczch/iTunes_Sync_Prefix.pch -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m" -o "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes_SyncAppDelegate.o"0#
+lSLF07#2@86"Compile /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m307345526#307345526#0(0"0(0#0#78"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m8613509728#1753"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-generated-files.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-own-target-headers.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-all-target-headers.hmap" -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-project-headers.hmap" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/include" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources/x86_64" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources" -include /var/folders/ui/ui0otfZAGUaNhFpzIA6S2k+++TQ/-Caches-/com.apple.Xcode.503/SharedPrecompiledHeaders/iTunes_Sync_Prefix-debgplvzbiwwrvbqlbmkjazfczch/iTunes_Sync_Prefix.pch -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_SyncAppDelegate.m" -o "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes_SyncAppDelegate.o"0#
 
 CCompileC "build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/main.o" "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
 s307264503.617890
@@ -161,12 +161,12 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@68"Compile /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/main.m307264503#307264503#0(0"0(0#0#60"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/main.m8606587136#1717"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-generated-files.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-own-target-headers.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-all-target-headers.hmap" -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-project-headers.hmap" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/include" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources/x86_64" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources" -include /var/folders/ui/ui0otfZAGUaNhFpzIA6S2k+++TQ/-Caches-/com.apple.Xcode.503/SharedPrecompiledHeaders/iTunes_Sync_Prefix-debgplvzbiwwrvbqlbmkjazfczch/iTunes_Sync_Prefix.pch -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/main.m" -o "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/main.o"0#
 
 CCompileXIB "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib"
-s307264501.056297
-e307264501.289208
+s307329198.570109
+e307329198.836135
 r1
 xCompileXIB
 x/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib
-lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib307264501#307264501#0(0"0(0#0#80"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib8611554080#419"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj/MainMenu.nib" "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib" --sdk /Developer/SDKs/MacOSX10.6.sdk0#
+lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib307329198#307329198#0(0"0(0#0#80"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib8621729248#419"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj/MainMenu.nib" "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/MainMenu.xib" --sdk /Developer/SDKs/MacOSX10.6.sdk0#
 
 CCopyStringsFile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
 s307264501.054968
@@ -178,14 +178,14 @@ xEnglish.lproj/InfoPlist.strings
 lSLF07#2@36"Copy English.lproj/InfoPlist.strings307264501#307264501#0(0"0(0#0#85"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/English.lproj/InfoPlist.strings8611668832#403"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Resources/English.lproj"0#
 
 CLd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync" normal x86_64
-s307264503.783120
-e307264504.120791
+s307345526.957249
+e307345526.983779
 r1
 xLd
 x/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync
 xnormal
 xx86_64
-lSLF07#2@113"Link /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync307264503#307264504#0(0"0(0#0#0"8606954432#674"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" -filelist "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes Sync.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -framework ScriptingBridge -o "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync"0#
+lSLF07#2@113"Link /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync307345526#307345526#0(0"0(0#0#0"8619028224#674"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" -filelist "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/Objects-normal/x86_64/iTunes Sync.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -framework ScriptingBridge -o "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/MacOS/iTunes Sync"0#
 
 CProcessInfoPlistFile "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app/Contents/Info.plist" iTunes_Sync-Info.plist
 s307264500.977324
@@ -210,10 +210,10 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@33"Precompile iTunes_Sync_Prefix.pch307264501#307264503#0(0"0(0#0#76"/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_Sync_Prefix.pch8605793888#1602"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-generated-files.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-own-target-headers.hmap" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-all-target-headers.hmap" -iquote "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/iTunes Sync-project-headers.hmap" "-F/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/include" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources/x86_64" "-I/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/iTunes Sync.build/Debug/iTunes Sync.build/DerivedSources" -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/iTunes_Sync_Prefix.pch" -o /var/folders/ui/ui0otfZAGUaNhFpzIA6S2k+++TQ/-Caches-/com.apple.Xcode.503/SharedPrecompiledHeaders/iTunes_Sync_Prefix-debgplvzbiwwrvbqlbmkjazfczch/iTunes_Sync_Prefix.pch.gch0#
 
 CTouch "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app"
-s307264504.120864
-e307264504.123077
+s307345526.983850
+e307345526.985905
 r1
 xTouch
 x/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app
-lSLF07#2@87"Touch /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app307264504#307264504#0(0"0(0#0#0"8619443808#169"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    /usr/bin/touch -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app"0#
+lSLF07#2@87"Touch /Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app307345526#307345526#0(0"0(0#0#0"8620762016#169"    cd "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync"    /usr/bin/touch -c "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync/build/Debug/iTunes Sync.app"0#
 

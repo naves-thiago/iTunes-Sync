@@ -11,11 +11,17 @@
 
 @interface iTunes_SyncAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
-	IBOutlet NSButton *pp;
+	IBOutlet NSTableView *grid;
+	NSMutableArray *dataset;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 
 -(IBAction)play:(id)sender;
+-(IBAction)list:(id)sender;
+- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (id)tableView:(NSTableView *)tableView
+      objectValueForTableColumn:(NSTableColumn *)tableColumn
+	  row:(int)row;
 
 @end
