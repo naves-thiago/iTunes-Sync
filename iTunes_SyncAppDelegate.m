@@ -15,6 +15,30 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	dataset = [[NSMutableArray alloc] init];
+	saveDir = @"~/Library/Application Support/iTunes Sync/";
+	saveDir = [saveDir stringByExpandingTildeInPath];
+	dbDir = [saveDir stringByAppendingPathComponent:@"sync.db"];
+	
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	if ([fileManager fileExistsAtPath: saveDir] == NO) 
+	{ 
+		// Create the iTunes Sync folder
+		[fileManager createDirectoryAtPath:saveDir withIntermediateDirectories:YES attributes:nil error:nil];
+	} 
+	
+	if ([fileManager fileExistsAtPath:dbDir] == NO )
+	{
+		// Copy the default ( empty ) db
+		NSBundle *mainBundle = [NSBundle mainBundle];
+		[fileManager copyItemAtPath:[mainBundle pathForResource:@"sync" ofType:@"db"] toPath:dbDir error:nil];		
+	}
+}
+
+- (void) endShowMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if ([alert messageText] == @"Error")
+		[[NSApplication alloc] terminate:self];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -41,12 +65,12 @@
 	if ([itunes isRunning])
 	{
 		[dataset removeAllObjects];
-//		SBElementArray *tracks = [[[[[itunes sources] objectWithName:@"Library"] userPlaylists] objectWithName:@"Music"] fileTracks];
 		SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
 
 		iTunesTrack * track;
 		for ( track in tracks )
 			[dataset addObject:[NSString stringWithString:track.name]];
+		
 //		for (int i=0; i<[tracks count]; i++ )
 //			[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
 		

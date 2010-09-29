@@ -11,6 +11,8 @@
 
 @interface iTunes_SyncAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
+	NSString *saveDir;
+	NSString *dbDir;
 	IBOutlet NSTableView *grid;
 	NSMutableArray *dataset;
 }
@@ -23,5 +25,6 @@
 - (id)tableView:(NSTableView *)tableView
       objectValueForTableColumn:(NSTableColumn *)tableColumn
 	  row:(int)row;
+- (void) endShowMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 
 @end
