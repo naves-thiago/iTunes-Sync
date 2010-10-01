@@ -10,7 +10,7 @@
 
 @implementation iTunes_SyncAppDelegate
 
-@synthesize window;
+@synthesize window, noiTunesPannel;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -21,24 +21,75 @@
 	
 	NSFileManager *fileManager = [[NSFileManager alloc] init];
 	
+	// Create the iTunes Sync folder
 	if ([fileManager fileExistsAtPath: saveDir] == NO) 
-	{ 
-		// Create the iTunes Sync folder
 		[fileManager createDirectoryAtPath:saveDir withIntermediateDirectories:YES attributes:nil error:nil];
-	} 
 	
+	// Copy the default ( empty ) db
 	if ([fileManager fileExistsAtPath:dbDir] == NO )
 	{
-		// Copy the default ( empty ) db
 		NSBundle *mainBundle = [NSBundle mainBundle];
 		[fileManager copyItemAtPath:[mainBundle pathForResource:@"sync" ofType:@"db"] toPath:dbDir error:nil];		
 	}
+	
+	// Test if copy was successiful
+	if ([fileManager fileExistsAtPath:dbDir] == NO )
+	{
+		// Show a error message
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert addButtonWithTitle:@"OK"];
+		[alert setMessageText:@"Error"];
+		[alert setInformativeText:[NSString stringWithFormat:@"Error: Could not create database at path: %@", saveDir]];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
+	}
+	
+	// Open database
+	db = [DB alloc];
+	[[db init] retain];
+	
+	if ([db openDB:dbDir] == NO)
+	{
+		// Show a error message
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert addButtonWithTitle:@"OK"];
+		[alert setMessageText:@"Error"];
+		[alert setInformativeText:@"Error: Could not open database."];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
+	}
+	
+	// Look for iTunes
+	itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+	if ([itunes isRunning] == NO)
+	{
+		[NSApp beginSheet:noiTunesPannel
+		    modalForWindow:[self window] modalDelegate:self
+			didEndSelector:nil
+			contextInfo:nil];
+	}
+	
 }
 
-- (void) endShowMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+-(IBAction)retryiTunes:(id)sender
 {
-	if ([alert messageText] == @"Error")
-		[[NSApplication alloc] terminate:self];
+	if ([itunes isRunning])
+	{
+		[noiTunesPannel orderOut:self];
+		[NSApp endSheet:noiTunesPannel];
+	}
+}
+
+-(IBAction)iTunesQuit:(id)sender
+{
+	[noiTunesPannel orderOut:self];
+	[NSApp endSheet:noiTunesPannel];
+	[NSApp terminate:nil];
+}
+
+- (void) endOpenDBMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	[NSApp terminate:nil];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -46,45 +97,37 @@
 	return true;
 }
 
+-(void)applicationWillTerminate:(NSNotification *)notification
+{
+	[db closeDB];
+	[db release];
+}
+
 -(IBAction)play:(id)sender
 {
-	iTunesApplication* iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-	
-	// check if iTunes is running
-	if ([iTunes isRunning])
-	{
-		[iTunes playpause];
-	}	
+	[itunes playpause];
 }
 
 -(IBAction)list:(id)sender
 {
-	iTunesApplication* itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+	// Show iTunes music library on the gird
 	
-	// check if iTunes is running
-	if ([itunes isRunning])
-	{
-		[dataset removeAllObjects];
-		SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
+	// Clear dataset
+	[dataset removeAllObjects];
+	
+	// Get the tracks
+	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
 
-		iTunesTrack * track;
-		for ( track in tracks )
-			[dataset addObject:[NSString stringWithString:track.name]];
-		
-//		for (int i=0; i<[tracks count]; i++ )
-//			[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
-		
-		
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert addButtonWithTitle:@"OK"];
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert setMessageText:@"Sheet Title"];
-		[alert setInformativeText:[NSString stringWithFormat:@"%d", [tracks	count]]];
-		[alert setAlertStyle:NSWarningAlertStyle];
-		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-		
-		[grid reloadData];
-	}
+	// Iterate
+	iTunesTrack * track;
+	for ( track in tracks )
+		[dataset addObject:[NSString stringWithString:track.name]];
+	
+//	for (int i=0; i<[tracks count]; i++ )
+//		[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
+
+	// Tell grid to reload
+	[grid reloadData];
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
@@ -97,6 +140,59 @@
       row:(int)row
 {
     return [dataset objectAtIndex:row];
+}
+
+- (void)emptyDB
+{
+	[db execSQL:@"delete from music"];
+}
+
+- (void)fillDB
+{
+	// Copy iTunes' Music Library to DB
+	
+	// Clear DB
+	[self emptyDB];
+	
+	// Get Tracks
+	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
+	
+	// Iterate
+	iTunesTrack *track; // Iterator
+	NSString *sql; // SQL command
+	for ( track in tracks )
+	{
+		sql = [NSString stringWithFormat:@"insert into music (title, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
+		if ([db execSQL:sql] == NO)
+		{
+			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+			[alert addButtonWithTitle:@"OK"];
+			[alert setMessageText:@"Error"];
+			[alert setInformativeText:[NSString stringWithFormat:@"Could not add song %@ to database.\nError: %@", track.name, [db error]]];
+			[alert setAlertStyle:NSCriticalAlertStyle];
+			[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
+			break;
+		}
+		[db next];
+		[db endExec];		
+	}
+	
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:@"Fill DB:"];
+	[alert setInformativeText:@"Done."];
+	[alert setAlertStyle:NSInformationalAlertStyle];
+	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+}
+
+- (void)readDB
+{
+	
+}
+
+-(IBAction)fill:(id)sender
+{
+	[self fillDB];
 }
 
 @end
