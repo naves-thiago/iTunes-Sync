@@ -10,7 +10,7 @@
 
 @implementation iTunes_SyncAppDelegate
 
-@synthesize window, noiTunesPannel;
+@synthesize window, noiTunesPanel, loadingPanel;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -63,10 +63,7 @@
 	itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
 	if ([itunes isRunning] == NO)
 	{
-		[NSApp beginSheet:noiTunesPannel
-		    modalForWindow:[self window] modalDelegate:self
-			didEndSelector:nil
-			contextInfo:nil];
+		[self openNoiTunesPanel];
 	}
 	
 }
@@ -75,15 +72,13 @@
 {
 	if ([itunes isRunning])
 	{
-		[noiTunesPannel orderOut:self];
-		[NSApp endSheet:noiTunesPannel];
+		[self closeNoiTunesPanel];
 	}
 }
 
 -(IBAction)iTunesQuit:(id)sender
 {
-	[noiTunesPannel orderOut:self];
-	[NSApp endSheet:noiTunesPannel];
+	[self closeNoiTunesPanel];
 	[NSApp terminate:nil];
 }
 
@@ -157,14 +152,24 @@
 	// Get Tracks
 	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
 	
+	// Set progress indicator
+	[loadProgress setMaxValue:(double)[tracks count]];
+	
+	// Show loading sheet
+	[NSThread detachNewThreadSelector:@selector(openLoadingPanel) toTarget:self withObject:nil];
+	
+//	[self openLoadingPanel];
+	
 	// Iterate
 	iTunesTrack *track; // Iterator
 	NSString *sql; // SQL command
 	for ( track in tracks )
 	{
-		sql = [NSString stringWithFormat:@"insert into music (title, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
+		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
 		if ([db execSQL:sql] == NO)
 		{
+			[self closeLoadingPanel];
+			
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:@"OK"];
 			[alert setMessageText:@"Error"];
@@ -174,8 +179,11 @@
 			break;
 		}
 		[db next];
-		[db endExec];		
+		[db endExec];
+		[loadProgress incrementBy:1];
 	}
+	
+	[self closeLoadingPanel];
 	
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"OK"];
@@ -193,6 +201,39 @@
 -(IBAction)fill:(id)sender
 {
 	[self fillDB];
+}
+
+-(void)openNoiTunesPanel
+{
+	[NSApp beginSheet:noiTunesPanel
+	   modalForWindow:[self window] modalDelegate:self
+	   didEndSelector:nil
+	   contextInfo:nil];
+}
+
+-(void)closeNoiTunesPanel
+{
+	[noiTunesPanel orderOut:self];
+	[NSApp endSheet:noiTunesPanel];
+}
+
+-(void)openLoadingPanel
+{
+	[NSApp beginSheet:loadingPanel
+	   modalForWindow:[self window] modalDelegate:self
+	   didEndSelector:nil
+	   contextInfo:nil];
+}
+
+-(void)closeLoadingPanel
+{
+	[loadingPanel orderOut:self];
+	[NSApp endSheet:loadingPanel];
+}
+
+-(IBAction)abort:(id)sender
+{
+	
 }
 
 @end

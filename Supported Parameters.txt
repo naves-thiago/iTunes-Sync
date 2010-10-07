@@ -1,3 +1,4 @@
+str name 
 str album
 str albumArtist
 int albumRating
