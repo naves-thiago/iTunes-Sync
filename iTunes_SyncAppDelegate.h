@@ -10,18 +10,23 @@
 #import "iTunes.h"
 #import "DB.h"
 
+#define	ITUNES_USER_LIB 0
+#define ITUNES_MUSIC 0
+
 @interface iTunes_SyncAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
-	NSWindow *noiTunesPanel;
-	NSWindow *loadingPanel;
-	IBOutlet NSTableView *grid;
-	IBOutlet NSProgressIndicator *loadProgress;
-	IBOutlet NSImageView *loadImage;
-	NSString *saveDir;
-	NSString *dbDir;
-	NSMutableArray *dataset;
-	DB *db;
-	iTunesApplication* itunes;
+    NSWindow *window;			// Main window
+	NSWindow *noiTunesPanel;	// iTunes not open error panel
+	NSWindow *loadingPanel;		// Loading panel
+	
+	IBOutlet NSTableView *grid;					// Main display grid
+	IBOutlet NSProgressIndicator *loadProgress; // Progress bar in loading panel
+	IBOutlet NSImageView *loadImage;			// Image in loading panel
+	
+	NSString *saveDir;			// Save DB path ( folder only )
+	NSString *dbDir;			// DB file path
+	NSMutableArray *dataset;	// Buffer to store the grid data
+	DB *db;						// Database handle
+	iTunesApplication* itunes;	// iTunes handle
 }
 
 @property (assign) IBOutlet NSWindow *window;

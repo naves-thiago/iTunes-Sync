@@ -154,20 +154,21 @@
 	
 	// Set progress indicator
 	[loadProgress setMaxValue:(double)[tracks count]];
-	
-	// Show loading sheet
-	[NSThread detachNewThreadSelector:@selector(openLoadingPanel) toTarget:self withObject:nil];
-	
-//	[self openLoadingPanel];
+	[loadProgress setDoubleValue:0.0];
 	
 	// Iterate
 	iTunesTrack *track; // Iterator
 	NSString *sql; // SQL command
+	
 	for ( track in tracks )
 	{
+		// Create SQL statement
 		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
-		if ([db execSQL:sql] == NO)
+		
+		// Try to execute SQL
+		if ([db execSQL:sql] == NO) 
 		{
+			// In case of an error, display it
 			[self closeLoadingPanel];
 			
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -178,6 +179,7 @@
 			[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
 			break;
 		}
+		
 		[db next];
 		[db endExec];
 		[loadProgress incrementBy:1];
@@ -185,6 +187,7 @@
 	
 	[self closeLoadingPanel];
 	
+	// Display Done message
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:@"Fill DB:"];
@@ -200,7 +203,11 @@
 
 -(IBAction)fill:(id)sender
 {
-	[self fillDB];
+	// Show loading sheet
+	[self openLoadingPanel];
+	
+	// Start filling DB
+	[NSThread detachNewThreadSelector:@selector(fillDB) toTarget:self withObject:nil];
 }
 
 -(void)openNoiTunesPanel
