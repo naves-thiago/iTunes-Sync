@@ -41,11 +41,13 @@
 -(IBAction)iTunesQuit:(id)sender;
 -(IBAction)fill:(id)sender;
 -(IBAction)abort:(id)sender;
+-(IBAction)listDB:(id)sender;
 
 -(void)openNoiTunesPanel;
 -(void)closeNoiTunesPanel;
 -(void)openLoadingPanel;
 -(void)closeLoadingPanel;
+-(void)animateProgress:(BOOL)anim;
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView;
 - (id)tableView:(NSTableView *)tableView

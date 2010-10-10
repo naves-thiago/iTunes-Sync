@@ -12,6 +12,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AF1270C51262290500665D5A /* Sync.icns in Resources */ = {isa = PBXBuildFile; fileRef = AF1270C41262290500665D5A /* Sync.icns */; };
 		AF912E8B12530A2F003B3084 /* sync.db in Resources */ = {isa = PBXBuildFile; fileRef = AF912E8A12530A2F003B3084 /* sync.db */; };
 		AF94C8A412556FAA00829F40 /* DB.m in Sources */ = {isa = PBXBuildFile; fileRef = AF94C8A312556FAA00829F40 /* DB.m */; };
 		AF94C8E912558CBE00829F40 /* iTunes.icns in Resources */ = {isa = PBXBuildFile; fileRef = AF94C8E812558CBE00829F40 /* iTunes.icns */; };
@@ -31,6 +32,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* iTunes_Sync-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTunes_Sync-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* iTunes Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTunes Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF1270C41262290500665D5A /* Sync.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Sync.icns; path = Icon/Sync.icns; sourceTree = "<group>"; };
 		AF912E8A12530A2F003B3084 /* sync.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = sync.db; path = Resources/sync.db; sourceTree = "<group>"; };
 		AF94C8A212556FAA00829F40 /* DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DB.h; sourceTree = "<group>"; };
 		AF94C8A312556FAA00829F40 /* DB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DB.m; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AF1270C41262290500665D5A /* Sync.icns */,
 				AF94C8E812558CBE00829F40 /* iTunes.icns */,
 				AF912E8A12530A2F003B3084 /* sync.db */,
 				8D1107310486CEB800E47090 /* iTunes_Sync-Info.plist */,
@@ -182,6 +185,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				AF912E8B12530A2F003B3084 /* sync.db in Resources */,
 				AF94C8E912558CBE00829F40 /* iTunes.icns in Resources */,
+				AF1270C51262290500665D5A /* Sync.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

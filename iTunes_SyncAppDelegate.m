@@ -118,6 +118,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	abortFlag = TRUE;
 }
 
+-(IBAction)listDB:(id)sender
+{
+	// Show loading panel
+	[self openLoadingPanel];
+	
+	// Start loading db on a separate thread
+	[NSThread detachNewThreadSelector:@selector(readDB) toTarget:self withObject:nil];
+}
+
 -(void)displayError:(NSString *)message
 {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -126,6 +135,48 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[alert setInformativeText:message];
 	[alert setAlertStyle:NSCriticalAlertStyle];
 	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endErrorAndQuit:returnCode:contextInfo:) contextInfo:nil];
+}
+
+-(void)openNoiTunesPanel
+{
+	[NSApp beginSheet:noiTunesPanel
+	   modalForWindow:[self window] modalDelegate:self
+	   didEndSelector:nil
+		  contextInfo:nil];
+}
+
+-(void)closeNoiTunesPanel
+{
+	[noiTunesPanel orderOut:self];
+	[NSApp endSheet:noiTunesPanel];
+}
+
+-(void)openLoadingPanel
+{
+	[NSApp beginSheet:loadingPanel
+	   modalForWindow:[self window] modalDelegate:self
+	   didEndSelector:nil
+		  contextInfo:nil];
+}
+
+-(void)closeLoadingPanel
+{
+	[loadingPanel orderOut:self];
+	[NSApp endSheet:loadingPanel];
+}
+
+-(void)animateProgress:(BOOL)anim
+{
+	if ( anim )
+	{
+		[loadProgress setIndeterminate:TRUE];
+		[loadProgress startAnimation:self];
+	}
+	else
+	{
+		[loadProgress stopAnimation:self];
+		[loadProgress setIndeterminate:FALSE];
+	}
 }
 
 -(BOOL)createDB
@@ -269,6 +320,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		// Check abort flag
 		if ( abortFlag )
 		{
+			// Stop current DB operation
+			[db endExec];
+			
 			// Restore DB backup
 			[self restoreDB];
 			
@@ -279,7 +333,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		}
 		
 		// Create SQL statement
-		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
+		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], 
+																									  [db encodeString:track.artist]];
 		
 		// Try to execute SQL
 		if ([db execSQL:sql] == NO) 
@@ -309,35 +364,47 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)readDB
 {
+	// Display data stored on DB in the grid
 	
-}
+	// Create a auto release pool, since we are running on a thread
+	[[NSAutoreleasePool alloc] init];
+	
+	// Clear current grid data
+	[dataset removeAllObjects];
+	
+	// Set progress indicator
+	[self animateProgress:YES];
+	
+	// Iterate
+	[db execSQL:@"select name, artist from music"];
+	
+	NSMutableArray *array; // Buffer
+	
+	while ([db next])
+	{
+		array = [[NSMutableArray alloc] init];
+		[array addObject:[NSString stringWithString:[db fieldString:0]]];
+		[array addObject:[NSString stringWithString:[db fieldString:1]]];
 
--(void)openNoiTunesPanel
-{
-	[NSApp beginSheet:noiTunesPanel
-	   modalForWindow:[self window] modalDelegate:self
-	   didEndSelector:nil
-	   contextInfo:nil];
-}
+		[dataset addObject:array];
+	}
 
--(void)closeNoiTunesPanel
-{
-	[noiTunesPanel orderOut:self];
-	[NSApp endSheet:noiTunesPanel];
-}
-
--(void)openLoadingPanel
-{
-	[NSApp beginSheet:loadingPanel
-	   modalForWindow:[self window] modalDelegate:self
-	   didEndSelector:nil
-	   contextInfo:nil];
-}
-
--(void)closeLoadingPanel
-{
-	[loadingPanel orderOut:self];
-	[NSApp endSheet:loadingPanel];
+	[db endExec];
+	
+	// Refresh grid
+	[grid reloadData];
+	
+	// Stop animation and close panel
+	[self animateProgress:NO];
+	[self closeLoadingPanel];
+	
+	// Display Done message
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:@"Fill DB:"];
+	[alert setInformativeText:@"Done."];
+	[alert setAlertStyle:NSInformationalAlertStyle];
+	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 @end
