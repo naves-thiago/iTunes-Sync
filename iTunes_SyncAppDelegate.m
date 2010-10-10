@@ -16,48 +16,16 @@
 {
 	dataset = [[NSMutableArray alloc] init];
 	saveDir = @"~/Library/Application Support/iTunes Sync/";
-	saveDir = [saveDir stringByExpandingTildeInPath];
-	dbDir = [saveDir stringByAppendingPathComponent:@"sync.db"];
-	
-	NSFileManager *fileManager = [[NSFileManager alloc] init];
-	
-	// Create the iTunes Sync folder
-	if ([fileManager fileExistsAtPath: saveDir] == NO) 
-		[fileManager createDirectoryAtPath:saveDir withIntermediateDirectories:YES attributes:nil error:nil];
-	
-	// Copy the default ( empty ) db
-	if ([fileManager fileExistsAtPath:dbDir] == NO )
-	{
-		NSBundle *mainBundle = [NSBundle mainBundle];
-		[fileManager copyItemAtPath:[mainBundle pathForResource:@"sync" ofType:@"db"] toPath:dbDir error:nil];		
-	}
-	
-	// Test if copy was successiful
-	if ([fileManager fileExistsAtPath:dbDir] == NO )
-	{
-		// Show a error message
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert addButtonWithTitle:@"OK"];
-		[alert setMessageText:@"Error"];
-		[alert setInformativeText:[NSString stringWithFormat:@"Error: Could not create database at path: %@", saveDir]];
-		[alert setAlertStyle:NSCriticalAlertStyle];
-		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
-	}
+	saveDir =[[saveDir stringByExpandingTildeInPath] retain];
+	dbFile = [[saveDir stringByAppendingPathComponent:@"sync.db"] retain];
+	bakDir = [[saveDir stringByAppendingPathComponent:@"sync.bak"] retain];
 	
 	// Open database
 	db = [DB alloc];
 	[[db init] retain];
 	
-	if ([db openDB:dbDir] == NO)
-	{
-		// Show a error message
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert addButtonWithTitle:@"OK"];
-		[alert setMessageText:@"Error"];
-		[alert setInformativeText:@"Error: Could not open database."];
-		[alert setAlertStyle:NSCriticalAlertStyle];
-		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
-	}
+	if ([db openDB:dbFile] == NO)
+		[self displayError:@"Error: Could not open database."];
 	
 	// Look for iTunes
 	itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
@@ -68,21 +36,7 @@
 	
 }
 
--(IBAction)retryiTunes:(id)sender
-{
-	if ([itunes isRunning])
-	{
-		[self closeNoiTunesPanel];
-	}
-}
-
--(IBAction)iTunesQuit:(id)sender
-{
-	[self closeNoiTunesPanel];
-	[NSApp terminate:nil];
-}
-
-- (void) endOpenDBMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void) endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	[NSApp terminate:nil];
 }
@@ -96,6 +50,31 @@
 {
 	[db closeDB];
 	[db release];
+}
+
+- (int)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return [dataset count];
+}
+
+- (id)tableView:(NSTableView *)tableView
+objectValueForTableColumn:(NSTableColumn *)tableColumn
+			row:(int)row
+{
+    return [dataset objectAtIndex:row];
+}
+
+-(IBAction)retryiTunes:(id)sender
+{
+	// Check if iTunes is open
+	if ([itunes isRunning])
+		[self closeNoiTunesPanel];
+}
+
+-(IBAction)iTunesQuit:(id)sender
+{
+	[self closeNoiTunesPanel];
+	[NSApp terminate:nil];
 }
 
 -(IBAction)play:(id)sender
@@ -112,29 +91,113 @@
 	
 	// Get the tracks
 	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
-
+	
 	// Iterate
 	iTunesTrack * track;
 	for ( track in tracks )
 		[dataset addObject:[NSString stringWithString:track.name]];
 	
-//	for (int i=0; i<[tracks count]; i++ )
-//		[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
-
+	//	for (int i=0; i<[tracks count]; i++ )
+	//		[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
+	
 	// Tell grid to reload
 	[grid reloadData];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+-(IBAction)fill:(id)sender
 {
-    return [dataset count];
+	// Show loading sheet
+	[self openLoadingPanel];
+	
+	// Start filling DB
+	[NSThread detachNewThreadSelector:@selector(fillDB) toTarget:self withObject:nil];
 }
 
-- (id)tableView:(NSTableView *)tableView
-      objectValueForTableColumn:(NSTableColumn *)tableColumn
-      row:(int)row
+-(IBAction)abort:(id)sender
 {
-    return [dataset objectAtIndex:row];
+	abortFlag = TRUE;
+}
+
+-(void)displayError:(NSString *)message
+{
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:@"Error"];
+	[alert setInformativeText:message];
+	[alert setAlertStyle:NSCriticalAlertStyle];
+	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endErrorAndQuit:returnCode:contextInfo:) contextInfo:nil];
+}
+
+-(BOOL)createDB
+{
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	// Create the iTunes Sync folder
+	if ([fileManager fileExistsAtPath: saveDir] == NO) 
+		[fileManager createDirectoryAtPath:saveDir withIntermediateDirectories:YES attributes:nil error:nil];
+	
+	// Copy the default ( empty ) db
+	if ([fileManager fileExistsAtPath:dbFile] == NO )
+	{
+		NSBundle *mainBundle = [NSBundle mainBundle];
+		[fileManager copyItemAtPath:[mainBundle pathForResource:@"sync" ofType:@"db"] toPath:dbFile error:nil];		
+	}
+	
+	// Test if copy was successiful
+	if ([fileManager fileExistsAtPath:dbFile] == NO )
+	{
+		[self displayError:[NSString stringWithFormat:@"Error: Could not create database at path: %@", saveDir]];
+		return NO;
+	}
+	
+	return YES;
+		
+}
+
+-(BOOL)backupDB
+{
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	// If theres already a backup, delete it first
+	[fileManager removeItemAtPath:bakDir error:nil];
+	
+	// Copy current DB to a temporary file
+	[fileManager copyItemAtPath:dbFile toPath:bakDir error:nil];
+	
+	// Check if move was successiful
+	if ( [fileManager fileExistsAtPath:bakDir] == NO )
+	{
+		[self displayError:[NSString stringWithFormat:@"Error: Could not backup database at path: %@", saveDir]];
+		return NO;
+	}
+	
+	return YES;
+}
+
+-(BOOL)restoreDB
+{
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	// Check if backup does not exsist
+	if ( [fileManager fileExistsAtPath:bakDir] == NO )
+	{
+		[self displayError:@"Backup not found."];
+		return NO;
+	}
+		
+	// Close db
+	[db closeDB];
+	
+	// Delete current DB file
+	[fileManager removeItemAtPath:dbFile error:nil];
+	
+	// Restore backup
+	[fileManager moveItemAtPath:bakDir toPath:dbFile error:nil];
+	
+	// Open DB
+	[db openDB:dbFile];
+	
+	return YES;
 }
 
 - (void)emptyDB
@@ -142,12 +205,53 @@
 	[db execSQL:@"delete from music"];
 }
 
+-(BOOL)moveDB
+{
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	// If theres already a backup, delete it first
+	[fileManager removeItemAtPath:bakDir error:nil];
+
+	// Close db
+	[db closeDB];
+	
+	// Move current DB to a temporary file
+	[fileManager moveItemAtPath:dbFile toPath:bakDir error:nil];
+	
+	// Check if move was successiful
+	if ( [fileManager fileExistsAtPath:bakDir] == NO )
+	{
+		[self displayError:[NSString stringWithFormat:@"Error: Could not backup database at path: %@", saveDir]];
+		return NO;
+	}
+
+	// Create a new DB file to work with
+	[self createDB];
+	
+	// Open new DB
+	[db openDB:dbFile];
+	
+	return YES;
+}
+
+-(void)removeBackup
+{
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	
+	// If theres already a backup, delete it first
+	[fileManager removeItemAtPath:bakDir error:nil];
+}
+
 - (void)fillDB
 {
 	// Copy iTunes' Music Library to DB
 	
-	// Clear DB
-	[self emptyDB];
+	// Create a auto release pool, since we are running on a thread
+	[[NSAutoreleasePool alloc] init];
+	
+	// Move DB
+	if ([self moveDB] == NO)
+		return;
 	
 	// Get Tracks
 	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
@@ -162,6 +266,18 @@
 	
 	for ( track in tracks )
 	{
+		// Check abort flag
+		if ( abortFlag )
+		{
+			// Restore DB backup
+			[self restoreDB];
+			
+			// Close the panel
+			[self closeLoadingPanel];
+			
+			return;
+		}
+		
 		// Create SQL statement
 		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], [db encodeString:track.artist]];
 		
@@ -170,13 +286,8 @@
 		{
 			// In case of an error, display it
 			[self closeLoadingPanel];
+			[self displayError:[NSString stringWithFormat:@"Could not add song %@ to database.\nError: %@", track.name, [db error]]];
 			
-			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-			[alert addButtonWithTitle:@"OK"];
-			[alert setMessageText:@"Error"];
-			[alert setInformativeText:[NSString stringWithFormat:@"Could not add song %@ to database.\nError: %@", track.name, [db error]]];
-			[alert setAlertStyle:NSCriticalAlertStyle];
-			[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(endOpenDBMessage:returnCode:contextInfo:) contextInfo:nil];
 			break;
 		}
 		
@@ -199,15 +310,6 @@
 - (void)readDB
 {
 	
-}
-
--(IBAction)fill:(id)sender
-{
-	// Show loading sheet
-	[self openLoadingPanel];
-	
-	// Start filling DB
-	[NSThread detachNewThreadSelector:@selector(fillDB) toTarget:self withObject:nil];
 }
 
 -(void)openNoiTunesPanel
@@ -236,11 +338,6 @@
 {
 	[loadingPanel orderOut:self];
 	[NSApp endSheet:loadingPanel];
-}
-
--(IBAction)abort:(id)sender
-{
-	
 }
 
 @end

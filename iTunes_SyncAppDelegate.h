@@ -23,10 +23,12 @@
 	IBOutlet NSImageView *loadImage;			// Image in loading panel
 	
 	NSString *saveDir;			// Save DB path ( folder only )
-	NSString *dbDir;			// DB file path
+	NSString *dbFile;			// DB file path
+	NSString *bakDir;			// Backup DB file path
 	NSMutableArray *dataset;	// Buffer to store the grid data
 	DB *db;						// Database handle
 	iTunesApplication* itunes;	// iTunes handle
+	BOOL abortFlag;				// I.e. the abort button has been clicked
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -44,13 +46,22 @@
 -(void)closeNoiTunesPanel;
 -(void)openLoadingPanel;
 -(void)closeLoadingPanel;
+
 - (int)numberOfRowsInTableView:(NSTableView *)tableView;
 - (id)tableView:(NSTableView *)tableView
       objectValueForTableColumn:(NSTableColumn *)tableColumn
 	  row:(int)row;
-- (void)endOpenDBMessage:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
-- (void)emptyDB;
-- (void)fillDB;
-- (void)readDB;
 
+-(void)displayError:(NSString *)message;
+-(void)endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+-(void)emptyDB;
+-(void)fillDB;
+-(void)readDB;
+
+-(BOOL)createDB;
+-(BOOL)backupDB;
+-(BOOL)restoreDB;
+-(BOOL)moveDB;
+-(void)removeBackup;
 @end
