@@ -30,10 +30,7 @@
 	// Look for iTunes
 	itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
 	if ([itunes isRunning] == NO)
-	{
 		[self openNoiTunesPanel];
-	}
-	
 }
 
 - (void) endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -61,7 +58,16 @@
 objectValueForTableColumn:(NSTableColumn *)tableColumn
 			row:(int)row
 {
-    return [dataset objectAtIndex:row];
+	NSMutableArray * a = [dataset objectAtIndex:row];
+	int i;
+	
+	// Find which column we are at and return the value
+	for ( i=0; i<[[tableView tableColumns] count]; i++ )
+		if ( [tableColumn identifier] == [[[tableView tableColumns] objectAtIndex:i] identifier] )
+			return [a objectAtIndex:i];
+	
+	// If the column was not found, retun nil ( also avoid annoing warning )
+	return nil;
 }
 
 -(IBAction)retryiTunes:(id)sender
@@ -253,7 +259,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)emptyDB
 {
-	[db execSQL:@"delete from music"];
+	[db prepareSQL:@"delete from music"];
+	[db execute];
 }
 
 -(BOOL)moveDB
@@ -300,6 +307,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	// Create a auto release pool, since we are running on a thread
 	[[NSAutoreleasePool alloc] init];
 	
+	// Error flag ( delete backup or restore it ? )
+	BOOL fError = NO;
+	
 	// Move DB
 	if ([self moveDB] == NO)
 		return;
@@ -333,23 +343,49 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		}
 		
 		// Create SQL statement
-		sql = [NSString stringWithFormat:@"insert into music (name, artist) values (\"%@\", \"%@\")", [db encodeString:track.name], 
-																									  [db encodeString:track.artist]];
+		sql = @"insert into music (name, artist, album) values ( ?1, ?2, ?3 )";
+		
+		
+		// Prepare the SQL
+		if ([db prepareSQL:sql] == NO)
+		{
+			// In case of an error, display it
+			[self closeLoadingPanel];
+			[self displayError:[NSString stringWithFormat:@"Could not prepare database.\nTrack: %@\nError: %@", track.name, [db error]]];
+			
+			// Set error flag
+			fError = YES;
+			
+			break;
+		}
+		
+		// Replace the parameters
+		[db bindString:track.name toId:1];
+		[db bindString:track.artist toId:2];
+		[db bindString:track.album toId:3];
 		
 		// Try to execute SQL
-		if ([db execSQL:sql] == NO) 
+		if ([db execute] == NO)	
 		{
 			// In case of an error, display it
 			[self closeLoadingPanel];
 			[self displayError:[NSString stringWithFormat:@"Could not add song %@ to database.\nError: %@", track.name, [db error]]];
 			
+			// Set error flag
+			fError = YES;
+			
 			break;
 		}
 		
-		[db next];
 		[db endExec];
 		[loadProgress incrementBy:1];
 	}
+	
+	// Check for errors
+	if (fError)
+		[self restoreDB];
+	else
+		[self removeBackup];
 	
 	[self closeLoadingPanel];
 	
@@ -376,7 +412,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[self animateProgress:YES];
 	
 	// Iterate
-	[db execSQL:@"select name, artist from music"];
+	[db prepareSQL:@"select name, artist, album from music"];
 	
 	NSMutableArray *array; // Buffer
 	
@@ -385,6 +421,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		array = [[NSMutableArray alloc] init];
 		[array addObject:[NSString stringWithString:[db fieldString:0]]];
 		[array addObject:[NSString stringWithString:[db fieldString:1]]];
+		[array addObject:[NSString stringWithString:[db fieldString:2]]];
 
 		[dataset addObject:array];
 	}

@@ -297,7 +297,7 @@
 							<real>229</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>370 290 1414 963 0 0 2560 1418 </string>
+						<string>370 275 1414 963 0 0 2560 1418 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -327,7 +327,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>AF1271061262328500665D5A</string>
+										<string>AFD5443B1268418A007760CF</string>
 										<key>history</key>
 										<array>
 											<string>AF132B7D12515A2A0063041D</string>
@@ -336,10 +336,10 @@
 											<string>AFED2FCB125D7AFD00CA8AB2</string>
 											<string>AF1270F212622FF600665D5A</string>
 											<string>AF1270F312622FF600665D5A</string>
-											<string>AF1270F412622FF600665D5A</string>
-											<string>AF1270F512622FF600665D5A</string>
-											<string>AF1270FD1262314300665D5A</string>
-											<string>AF1270FE1262314300665D5A</string>
+											<string>AFD543DD126831B5007760CF</string>
+											<string>AFD543E81268323A007760CF</string>
+											<string>AFD543EE12683298007760CF</string>
+											<string>AFD5440D12683B69007760CF</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -353,7 +353,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1163, 917}}</string>
 								<key>RubberWindowFrame</key>
-								<string>370 290 1414 963 0 0 2560 1418 </string>
+								<string>370 275 1414 963 0 0 2560 1418 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -373,7 +373,7 @@
 								<key>Frame</key>
 								<string>{{0, 922}, {1163, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>370 290 1414 963 0 0 2560 1418 </string>
+								<string>370 275 1414 963 0 0 2560 1418 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -397,9 +397,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>AF1270C11262235500665D5A</string>
+				<string>AFD543B312682588007760CF</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>AF1270C21262235500665D5A</string>
+				<string>AFD543B412682588007760CF</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -537,16 +537,15 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>AF1271071262328500665D5A</string>
-		<string>AF1270FA12622FF600665D5A</string>
-		<string>AF1270FB12622FF600665D5A</string>
+		<string>AFD543E4126831B5007760CF</string>
+		<string>AFD543E5126831B5007760CF</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>AFF9103C1250773A00A832D7</string>
 		<string>/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes Sync.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>370 290 1414 963 0 0 2560 1418 </string>
+	<string>370 275 1414 963 0 0 2560 1418 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -567,7 +566,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTunes_SyncAppDelegate.m</string>
+								<string>DB.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -625,7 +624,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>AFF9103C1250773A00A832D7</string>
-				<string>AF1270C31262235500665D5A</string>
+				<string>AFD543B512682588007760CF</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -747,13 +746,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>AF1270E912622FE600665D5A</string>
+				<string>AFD543D5126831AE007760CF</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>AF1270EA12622FE600665D5A</string>
-				<string>AF1270EB12622FE600665D5A</string>
-				<string>AF1270EC12622FE600665D5A</string>
-				<string>AF1270ED12622FE600665D5A</string>
-				<string>AF1270EE12622FE600665D5A</string>
+				<string>AFD543D6126831AE007760CF</string>
+				<string>AFD543D7126831AE007760CF</string>
+				<string>AFD543D8126831AE007760CF</string>
+				<string>AFD543D9126831AE007760CF</string>
+				<string>AFD543DA126831AE007760CF</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -915,7 +914,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>AF1270EF12622FE600665D5A</string>
+				<string>AFD543E2126831B5007760CF</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

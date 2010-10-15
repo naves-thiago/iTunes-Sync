@@ -16,14 +16,14 @@
 }
 
 -(BOOL)openDB:(NSString *)fileName;
--(BOOL)execSQL:(NSString *)sql;
+-(BOOL)prepareSQL:(NSString *)sql;
 -(BOOL)next;
+-(BOOL)execute;
 -(NSString *)fieldString:(int)ID;
 -(int)fieldInt:(int)ID;
 -(void)endExec;
 -(void)closeDB;
 -(NSString *)error;
--(NSString *)encodeString:(NSString *)s;
--(NSString *)decodeString:(NSString *)s;
-
+-(void)bindString:(NSString *)str toId:(int)ID;
+-(void)bindInteger:(int)i toId:(int)ID;
 @end

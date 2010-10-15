@@ -24,9 +24,14 @@
 	}
 }
 
--(BOOL)execSQL:(NSString *)sql
+-(BOOL)prepareSQL:(NSString *)sql
 {
 	return sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK;
+}
+
+-(BOOL)execute
+{
+	return sqlite3_step(statement) == SQLITE_DONE;
 }
 
 -(BOOL)next
@@ -60,6 +65,18 @@
 	return [NSString stringWithUTF8String:(char*)sqlite3_errmsg(database)];
 }
 
+-(void)bindString:(NSString *)str toId:(int)ID
+{
+	sqlite3_bind_text(statement, ID, [str UTF8String], -1, SQLITE_TRANSIENT);
+}
+
+-(void)bindInteger:(int)i toId:(int)ID
+{
+	sqlite3_bind_int(statement, ID, i);
+}
+
+
+/*
 -(NSString *)encodeString:(NSString *)s
 {
 	return [[s stringByReplacingOccurrencesOfString:@"#" withString:@"#23"] stringByReplacingOccurrencesOfString:@"\"" withString:@"#22"];
@@ -69,5 +86,6 @@
 {
 	return [[s stringByReplacingOccurrencesOfString:@"#22" withString:@"\""] stringByReplacingOccurrencesOfString:@"#23" withString:@"#"];
 }
+*/
 
 @end
