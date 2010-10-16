@@ -12,6 +12,23 @@
 
 #define	ITUNES_USER_LIB 0
 #define ITUNES_MUSIC 0
+#define QTD_FIELDS 47
+
+typedef enum Field_type {
+	FT_STRING,
+	FT_BOOL,
+	FT_DATE,
+	FT_DOUBLE,
+	FT_INTEGER
+} field_type;
+
+typedef struct Field
+{
+	NSString *name;
+	NSString *displayName;
+	field_type type;
+	BOOL visible;
+} field;
 
 @interface iTunes_SyncAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;			// Main window
@@ -22,13 +39,14 @@
 	IBOutlet NSProgressIndicator *loadProgress; // Progress bar in loading panel
 	IBOutlet NSImageView *loadImage;			// Image in loading panel
 	
-	NSString *saveDir;			// Save DB path ( folder only )
-	NSString *dbFile;			// DB file path
-	NSString *bakDir;			// Backup DB file path
-	NSMutableArray *dataset;	// Buffer to store the grid data
-	DB *db;						// Database handle
-	iTunesApplication* itunes;	// iTunes handle
-	BOOL abortFlag;				// I.e. the abort button has been clicked
+	NSString *saveDir;				// Save DB path ( folder only )
+	NSString *dbFile;				// DB file path
+	NSString *bakDir;				// Backup DB file path
+	NSMutableArray *dataset;		// Buffer to store the grid data
+	DB *db;							// Database handle
+	iTunesApplication* itunes;		// iTunes handle
+	BOOL abortFlag;					// I.e. the abort button has been clicked
+	field fields[QTD_FIELDS];		// List of supported music properties
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -56,6 +74,10 @@
 
 -(void)displayError:(NSString *)message;
 -(void)endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+-(void)fillFields;
+-(NSString *)selectSQL;
+-(NSString *)insertSQL;
 
 -(void)emptyDB;
 -(void)fillDB;

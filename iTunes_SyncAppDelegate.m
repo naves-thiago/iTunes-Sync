@@ -31,6 +31,9 @@
 	itunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
 	if ([itunes isRunning] == NO)
 		[self openNoiTunesPanel];
+	
+	// Fill fields vector
+	[self fillFields];
 }
 
 - (void) endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -68,6 +71,241 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 	// If the column was not found, retun nil ( also avoid annoing warning )
 	return nil;
+}
+
+-(void)fillFields
+{
+	int i;
+	
+	for (i=0; i<QTD_FIELDS; i++)
+		fields[i].visible = NO;
+	
+	i=0;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"name";
+	fields[i].displayName = @"Title";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"album";
+	fields[i].displayName = @"Album";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"albumArtist";
+	fields[i].displayName = @"Album Artist";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"albumRating";
+	fields[i].displayName = @"Album Rating";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"artist";
+	fields[i].displayName = @"Artist";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"bitRate";
+	fields[i].displayName = @"Bit Rate";
+	i+=1;
+	fields[i].type = FT_DOUBLE;
+	fields[i].name = @"bookmark";
+	fields[i].displayName = @"Bookmark";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"bookmarkable";
+	fields[i].displayName = @"Bookmarkable";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"bpm";
+	fields[i].displayName = @"BPM";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"category";
+	fields[i].displayName = @"Category";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"comment";
+	fields[i].displayName = @"Comment";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"compilation";
+	fields[i].displayName = @"Compilation";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"composer";
+	fields[i].displayName = @"Composer";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"databaseID";
+	fields[i].displayName = @"Database ID";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"objectDescription";
+	fields[i].displayName = @"Object Description";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"discCount";
+	fields[i].displayName = @"Disc Count";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"discNumber";
+	fields[i].displayName = @"Disc Number";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"enabled";
+	fields[i].displayName = @"Enabled";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"episodeID";
+	fields[i].displayName = @"Episode ID";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"episodeNumber";
+	fields[i].displayName = @"Episode Number";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"EQ";
+	fields[i].displayName = @"EQ";
+	i+=1;
+	fields[i].type = FT_DOUBLE;
+	fields[i].name = @"finish";
+	fields[i].displayName = @"Finish";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"gapless";
+	fields[i].displayName = @"Gapless";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"genre";
+	fields[i].displayName = @"Genre";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"grouping";
+	fields[i].displayName = @"Grouping";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"longDescription";
+	fields[i].displayName = @"Long Description";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"lyrics";
+	fields[i].displayName = @"Lyrics";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"playedCount";
+	fields[i].displayName = @"Played Count";
+	i+=1;
+	fields[i].type = FT_DATE;
+	fields[i].name = @"playedDate";
+	fields[i].displayName = @"Played Date";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"rating";
+	fields[i].displayName = @"Rating";
+	fields[i].visible = YES;
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"seasonNumber";
+	fields[i].displayName = @"Season Number";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"shufflable";
+	fields[i].displayName = @"Shufflable";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"skippedCount";
+	fields[i].displayName = @"Skipped Count";
+	i+=1;
+	fields[i].type = FT_DATE;
+	fields[i].name = @"skippedDate";
+	fields[i].displayName = @"Skipped Date";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"skippedDate";
+	fields[i].displayName = @"Skipped Date";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortAlbum";
+	fields[i].displayName = @"Sort Album";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortArtist";
+	fields[i].displayName = @"Sort Artist";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortAlbumArtist";
+	fields[i].displayName = @"Sort Album Artist";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortName";
+	fields[i].displayName = @"Sort Name";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortComposer";
+	fields[i].displayName = @"Sort Composer";
+	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"sortShow";
+	fields[i].displayName = @"Sort Show";
+	i+=1;
+	fields[i].type = FT_DOUBLE;
+	fields[i].name = @"start";
+	fields[i].displayName = @"Start";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"trackCount";
+	fields[i].displayName = @"Track Count";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"trackNumber";
+	fields[i].displayName = @"Track Number";
+	i+=1;
+	fields[i].type = FT_BOOL;
+	fields[i].name = @"unplayed";
+	fields[i].displayName = @"Unplayed";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"volumeAdjustment";
+	fields[i].displayName = @"Volume Adjustment";
+	i+=1;
+	fields[i].type = FT_INTEGER;
+	fields[i].name = @"year";
+	fields[i].displayName = @"Year";	
+}
+
+-(NSString *)selectSQL
+{
+	// Generate select SQL statement based on fields vector
+	int i;
+	NSString *sql = @"select ";
+	
+	for (i=0; i<QTD_FIELDS-1; i++)
+		sql = [sql stringByAppendingFormat:@"%@,", fields[i]];
+	
+	sql = [sql stringByAppendingFormat:@"%@ from music", fields[QTD_FIELDS-1].name];
+	return sql;
+}
+
+-(NSString *)insertSQL
+{
+	// Generate insert SQL statement based on fields vector
+	int i;
+	NSString *sql = @"insert into music (";
+	
+	for (i=0; i<QTD_FIELDS-1; i++)
+		sql = [sql stringByAppendingFormat:@"%@,", fields[i]];
+	
+	sql = [sql stringByAppendingFormat:@"%@) values (", fields[QTD_FIELDS-1].name];
+	
+	for (i=0; i<QTD_FIELDS-1; i++)
+		sql = [sql stringByAppendingFormat:@"?%d,", i];
+	
+	sql = [sql stringByAppendingFormat:@"?%d)", QTD_FIELDS-1];
+	
+	return sql;
 }
 
 -(IBAction)retryiTunes:(id)sender
@@ -208,7 +446,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	}
 	
 	return YES;
-		
 }
 
 -(BOOL)backupDB
@@ -321,9 +558,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadProgress setMaxValue:(double)[tracks count]];
 	[loadProgress setDoubleValue:0.0];
 	
+	// Create SQL statement
+	NSString *sql; // SQL command
+	sql = [self selectSQL];
+	
 	// Iterate
 	iTunesTrack *track; // Iterator
-	NSString *sql; // SQL command
 	
 	for ( track in tracks )
 	{
@@ -342,10 +582,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			return;
 		}
 		
-		// Create SQL statement
-		sql = @"insert into music (name, artist, album) values ( ?1, ?2, ?3 )";
-		
-		
 		// Prepare the SQL
 		if ([db prepareSQL:sql] == NO)
 		{
@@ -360,9 +596,53 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		}
 		
 		// Replace the parameters
-		[db bindString:track.name toId:1];
-		[db bindString:track.artist toId:2];
-		[db bindString:track.album toId:3];
+		[db bindString:track.name toId: 1];
+		[db bindString:track.album toId: 2];
+		[db bindString:track.albumArtist toId: 3];
+		[db bindInteger:track.albumRating toId: 4];
+		[db bindString:track.artist toId: 5];
+		[db bindInteger:track.bitRate toId: 6];
+		[db bindDouble:track.bookmark toId: 7];
+		[db bindBoolean:track.bookmarkable toId: 8];
+		[db bindInteger:track.bpm toId: 9];
+		[db bindString:track.category toId: 10];
+		[db bindString:track.comment toId: 11];
+		[db bindBoolean:track.compilation toId: 12];
+		[db bindString:track.composer toId: 13];
+		[db bindInteger:track.databaseID toId: 14];
+		[db bindString:track.objectDescription toId: 15];
+		[db bindInteger:track.discCount toId: 16];
+		[db bindInteger:track.discNumber toId: 17];
+		[db bindBoolean:track.enabled toId: 18];
+		[db bindString:track.episodeID toId: 19];
+		[db bindInteger:track.episodeNumber toId: 20];
+		[db bindString:track.EQ toId: 21];
+		[db bindDouble:track.finish toId: 22];
+		[db bindBoolean:track.gapless toId: 23];
+		[db bindString:track.genre toId: 24];
+		[db bindString:track.grouping toId: 25];
+		[db bindString:track.longDescription toId: 26];
+		[db bindString:track.lyrics toId: 27];
+		[db bindInteger:track.playedCount toId: 28];
+		[db bindDate:track.playedDate toId: 29];
+		[db bindInteger:track.rating toId: 30];
+		[db bindInteger:track.seasonNumber toId: 31];
+		[db bindBoolean:track.shufflable toId: 32];
+		[db bindInteger:track.skippedCount toId: 33];
+		[db bindDate:track.skippedDate toId: 34];
+		[db bindString:track.skippedDate toId: 35];
+		[db bindString:track.sortAlbum toId: 36];
+		[db bindString:track.sortArtist toId: 37];
+		[db bindString:track.sortAlbumArtist toId: 38];
+		[db bindString:track.sortName toId: 39];
+		[db bindString:track.sortComposer toId: 40];
+		[db bindString:track.sortShow toId: 41];
+		[db bindDouble:track.start toId: 42];
+		[db bindInteger:track.trackCount toId: 43];
+		[db bindInteger:track.trackNumber toId: 44];
+		[db bindBoolean:track.unplayed toId: 45];
+		[db bindInteger:track.volumeAdjustment toId: 46];
+		[db bindInteger:track.year toId: 47];		
 		
 		// Try to execute SQL
 		if ([db execute] == NO)	

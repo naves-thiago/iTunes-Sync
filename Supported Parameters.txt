@@ -7,7 +7,7 @@ int bitRate
 double bookmark
 bool bookmarkable
 int bpm
-str catebory
+str category
 str comment
 bool compilation
 str composer

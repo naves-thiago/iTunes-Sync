@@ -49,6 +49,21 @@
 	return sqlite3_column_int(statement, ID);
 }
 
+-(BOOL)fieldBoolean:(int)ID
+{
+	return [self fieldInt:id] == 1;
+}
+
+-(double)fieldDouble:(int)ID
+{
+	return sqlite3_column_double(statement, ID);
+}
+
+-(NSDate)fieldDate:(int)ID
+{
+	// ???
+}
+
 -(void)endExec
 {
 //	sqlite3_finalize(statement);
@@ -75,6 +90,20 @@
 	sqlite3_bind_int(statement, ID, i);
 }
 
+-(void)bindDouble:(double)d toId:(int)ID
+{
+	sqlite3_bind_double(statement, ID, d);
+}
+
+-(void)bindBoolean:(BOOL)b toId:(int)ID
+{
+	sqlite3_bind_int(statement, ID, b ? 1:0);
+}
+
+-(void)bindDate:(NSDate)d toId:(int)ID
+{
+//	sqlite3_bind  ????
+}
 
 /*
 -(NSString *)encodeString:(NSString *)s
