@@ -8,7 +8,6 @@
 
 #import "DB.h"
 
-//static sqlite3_stmt *statement = nil;
 @implementation DB
 
 -(BOOL)openDB:(NSString *)fileName
@@ -61,7 +60,7 @@
 
 -(NSDate)fieldDate:(int)ID
 {
-	// ???
+	return [NSDate dateWithString:[self fieldString:ID]];
 }
 
 -(void)endExec
@@ -102,7 +101,7 @@
 
 -(void)bindDate:(NSDate)d toId:(int)ID
 {
-//	sqlite3_bind  ????
+	[self bindString:[d description] toId:ID];
 }
 
 /*
