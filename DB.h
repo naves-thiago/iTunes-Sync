@@ -27,11 +27,11 @@
 -(int)fieldInt:(int)ID;
 -(BOOL)fieldBoolean:(int)ID;
 -(double)fieldDouble:(int)ID;
--(NSDate)fieldDate:(int)ID;
+-(NSDate *)fieldDate:(int)ID;
 
 -(void)bindString:(NSString *)str toId:(int)ID;
 -(void)bindInteger:(int)i toId:(int)ID;
 -(void)bindDouble:(double)d toId:(int)ID;
 -(void)bindBoolean:(BOOL)b toId:(int)ID;
--(void)bindDate:(NSDate)d toId:(int)ID;
+-(void)bindDate:(NSDate *)d toId:(int)ID;
 @end

@@ -50,7 +50,7 @@
 
 -(BOOL)fieldBoolean:(int)ID
 {
-	return [self fieldInt:id] == 1;
+	return [self fieldInt:ID] == 1;
 }
 
 -(double)fieldDouble:(int)ID
@@ -58,7 +58,7 @@
 	return sqlite3_column_double(statement, ID);
 }
 
--(NSDate)fieldDate:(int)ID
+-(NSDate *)fieldDate:(int)ID
 {
 	return [NSDate dateWithString:[self fieldString:ID]];
 }
@@ -99,7 +99,7 @@
 	sqlite3_bind_int(statement, ID, b ? 1:0);
 }
 
--(void)bindDate:(NSDate)d toId:(int)ID
+-(void)bindDate:(NSDate *)d toId:(int)ID
 {
 	[self bindString:[d description] toId:ID];
 }

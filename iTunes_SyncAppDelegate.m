@@ -283,7 +283,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	NSString *sql = @"select ";
 	
 	for (i=0; i<QTD_FIELDS-1; i++)
-		sql = [sql stringByAppendingFormat:@"%@,", fields[i]];
+		[sql stringByAppendingFormat:@"%@,", fields[i].name];
 	
 	sql = [sql stringByAppendingFormat:@"%@ from music", fields[QTD_FIELDS-1].name];
 	return sql;
@@ -296,14 +296,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	NSString *sql = @"insert into music (";
 	
 	for (i=0; i<QTD_FIELDS-1; i++)
-		sql = [sql stringByAppendingFormat:@"%@,", fields[i]];
+		sql = [sql stringByAppendingFormat:@"%@,", fields[i].name];
 	
 	sql = [sql stringByAppendingFormat:@"%@) values (", fields[QTD_FIELDS-1].name];
 	
-	for (i=0; i<QTD_FIELDS-1; i++)
+	for (i=1; i<QTD_FIELDS; i++)
 		sql = [sql stringByAppendingFormat:@"?%d,", i];
 	
-	sql = [sql stringByAppendingFormat:@"?%d)", QTD_FIELDS-1];
+	sql = [sql stringByAppendingFormat:@"?%d)", QTD_FIELDS];
 	
 	return sql;
 }
@@ -560,7 +560,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 	// Create SQL statement
 	NSString *sql; // SQL command
-	sql = [self selectSQL];
+	sql = [self insertSQL];
 	
 	// Iterate
 	iTunesTrack *track; // Iterator
@@ -630,7 +630,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[db bindBoolean:track.shufflable toId: 32];
 		[db bindInteger:track.skippedCount toId: 33];
 		[db bindDate:track.skippedDate toId: 34];
-		[db bindString:track.skippedDate toId: 35];
+		[db bindDate:track.skippedDate toId: 35];
 		[db bindString:track.sortAlbum toId: 36];
 		[db bindString:track.sortArtist toId: 37];
 		[db bindString:track.sortAlbumArtist toId: 38];
