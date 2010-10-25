@@ -41,6 +41,12 @@
 	[NSApp terminate:nil];
 }
 
+-(void)addObject:(id)obj toArray:(NSMutableArray *)array
+{
+	if (obj != nil)
+		[array addObject:obj];
+}
+
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
 	return true;
@@ -62,13 +68,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			row:(int)row
 {
 	NSMutableArray * a = [dataset objectAtIndex:row];
-	int i;
 	
 	// Find which column we are at and return the value
+	return [a objectAtIndex:[[tableColumn identifier] integerValue]-1];
+	
+	/*
 	for ( i=0; i<[[tableView tableColumns] count]; i++ )
 		if ( [tableColumn identifier] == [[[tableView tableColumns] objectAtIndex:i] identifier] )
 			return [a objectAtIndex:i];
-	
+	*/
 	// If the column was not found, retun nil ( also avoid annoing warning )
 	return nil;
 }
@@ -283,7 +291,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	NSString *sql = @"select ";
 	
 	for (i=0; i<QTD_FIELDS-1; i++)
-		[sql stringByAppendingFormat:@"%@,", fields[i].name];
+		sql = [sql stringByAppendingFormat:@"%@,", fields[i].name];
 	
 	sql = [sql stringByAppendingFormat:@"%@ from music", fields[QTD_FIELDS-1].name];
 	return sql;
@@ -559,7 +567,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadProgress setDoubleValue:0.0];
 	
 	// Create SQL statement
-	NSString *sql; // SQL command
+	NSString *sql;
 	sql = [self insertSQL];
 	
 	// Iterate
@@ -692,16 +700,62 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[self animateProgress:YES];
 	
 	// Iterate
-	[db prepareSQL:@"select name, artist, album from music"];
+	[db prepareSQL:[self selectSQL]];
 	
 	NSMutableArray *array; // Buffer
 	
 	while ([db next])
 	{
 		array = [[NSMutableArray alloc] init];
-		[array addObject:[NSString stringWithString:[db fieldString:0]]];
-		[array addObject:[NSString stringWithString:[db fieldString:1]]];
-		[array addObject:[NSString stringWithString:[db fieldString:2]]];
+		
+		[self addObject:[db fieldString:0] toArray:array];
+		[self addObject:[db fieldString:1] toArray:array];
+		[self addObject:[db fieldString:2] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:3]]];
+		[self addObject:[db fieldString:4] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:5]]];
+		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:6]]];
+		[array addObject:[db fieldBoolean:7] ? @"True":@"False"];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:8]]];
+		[self addObject:[db fieldString:9] toArray:array];
+		[self addObject:[db fieldString:10] toArray:array];
+		[array addObject:[db fieldBoolean:11] ? @"True":@"False"];
+		[self addObject:[db fieldString:12] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:13]]];
+		[self addObject:[db fieldString:14] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:15]]];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:16]]];
+		[array addObject:[db fieldBoolean:17] ? @"True":@"False"];
+		[self addObject:[db fieldString:18] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:19]]];
+		[self addObject:[db fieldString:20] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:21]]];
+		[array addObject:[db fieldBoolean:22] ? @"True":@"False"];
+		[self addObject:[db fieldString:23] toArray:array];
+		[self addObject:[db fieldString:24] toArray:array];
+		[self addObject:[db fieldString:25] toArray:array];
+		[self addObject:[db fieldString:26] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:27]]];
+		[self addObject:[db fieldString:28] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:29]]];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:30]]];
+		[array addObject:[db fieldBoolean:31] ? @"True":@"False"];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:32]]];
+		[self addObject:[db fieldString:33] toArray:array];
+		[self addObject:[db fieldString:34] toArray:array];
+		[self addObject:[db fieldString:35] toArray:array];
+		[self addObject:[db fieldString:36] toArray:array];
+		[self addObject:[db fieldString:37] toArray:array];
+		[self addObject:[db fieldString:38] toArray:array];
+		[self addObject:[db fieldString:39] toArray:array];
+		[self addObject:[db fieldString:40] toArray:array];
+		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:41]]];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:42]]];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:43]]];
+		[array addObject:[db fieldBoolean:44] ? @"True":@"False"];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:45]]];
+		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:46]]];
+		
 
 		[dataset addObject:array];
 	}

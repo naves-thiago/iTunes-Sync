@@ -74,6 +74,7 @@ typedef struct Field
 
 -(void)displayError:(NSString *)message;
 -(void)endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+-(void)addObject:(id)obj toArray:(NSMutableArray *)array;
 
 -(void)fillFields;
 -(NSString *)selectSQL;

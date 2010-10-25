@@ -40,7 +40,12 @@
 
 -(NSString *)fieldString:(int)ID
 {
-	return [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, ID)];
+	char * tmp = (char *)sqlite3_column_text(statement, ID);
+	
+	if ( tmp != NULL )
+		return [NSString stringWithUTF8String:tmp];
+	else
+		return nil;
 }
 
 -(int)fieldInt:(int)ID
@@ -103,17 +108,5 @@
 {
 	[self bindString:[d description] toId:ID];
 }
-
-/*
--(NSString *)encodeString:(NSString *)s
-{
-	return [[s stringByReplacingOccurrencesOfString:@"#" withString:@"#23"] stringByReplacingOccurrencesOfString:@"\"" withString:@"#22"];
-}
-
--(NSString *)decodeString:(NSString *)s
-{
-	return [[s stringByReplacingOccurrencesOfString:@"#22" withString:@"\""] stringByReplacingOccurrencesOfString:@"#23" withString:@"#"];
-}
-*/
 
 @end
