@@ -721,56 +721,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 				[array addObject:[db fieldBoolean:i] ? @"True":@"False"];
 		}
 		
-		/*
-		[self addObject:[db fieldString:0] toArray:array];
-		[self addObject:[db fieldString:1] toArray:array];
-		[self addObject:[db fieldString:2] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:3]]];
-		[self addObject:[db fieldString:4] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:5]]];
-		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:6]]];
-		[array addObject:[db fieldBoolean:7] ? @"True":@"False"];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:8]]];
-		[self addObject:[db fieldString:9] toArray:array];
-		[self addObject:[db fieldString:10] toArray:array];
-		[array addObject:[db fieldBoolean:11] ? @"True":@"False"];
-		[self addObject:[db fieldString:12] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:13]]];
-		[self addObject:[db fieldString:14] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:15]]];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:16]]];
-		[array addObject:[db fieldBoolean:17] ? @"True":@"False"];
-		[self addObject:[db fieldString:18] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:19]]];
-		[self addObject:[db fieldString:20] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:21]]];
-		[array addObject:[db fieldBoolean:22] ? @"True":@"False"];
-		[self addObject:[db fieldString:23] toArray:array];
-		[self addObject:[db fieldString:24] toArray:array];
-		[self addObject:[db fieldString:25] toArray:array];
-		[self addObject:[db fieldString:26] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:27]]];
-		[self addObject:[db fieldString:28] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:29]]];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:30]]];
-		[array addObject:[db fieldBoolean:31] ? @"True":@"False"];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:32]]];
-		[self addObject:[db fieldString:33] toArray:array];
-		[self addObject:[db fieldString:34] toArray:array];
-		[self addObject:[db fieldString:35] toArray:array];
-		[self addObject:[db fieldString:36] toArray:array];
-		[self addObject:[db fieldString:37] toArray:array];
-		[self addObject:[db fieldString:38] toArray:array];
-		[self addObject:[db fieldString:39] toArray:array];
-		[self addObject:[db fieldString:40] toArray:array];
-		[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:41]]];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:42]]];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:43]]];
-		[array addObject:[db fieldBoolean:44] ? @"True":@"False"];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:45]]];
-		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:46]]];
-		*/
-
 		[dataset addObject:array];
 	}
 
