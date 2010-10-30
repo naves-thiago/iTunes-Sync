@@ -86,7 +86,10 @@
 
 -(void)bindString:(NSString *)str toId:(int)ID
 {
-	sqlite3_bind_text(statement, ID, [str UTF8String], -1, SQLITE_TRANSIENT);
+	if ( str == nil )
+		sqlite3_bind_text(statement, ID, [@"" UTF8String], -1, SQLITE_TRANSIENT);
+	else
+		sqlite3_bind_text(statement, ID, [str UTF8String], -1, SQLITE_TRANSIENT);
 }
 
 -(void)bindInteger:(int)i toId:(int)ID

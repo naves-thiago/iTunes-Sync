@@ -232,8 +232,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	fields[i].displayName = @"Skipped Date";
 	i+=1;
 	fields[i].type = FT_STRING;
-	fields[i].name = @"skippedDate";
-	fields[i].displayName = @"Skipped Date";
+	fields[i].name = @"show";
+	fields[i].displayName = @"Show";
 	i+=1;
 	fields[i].type = FT_STRING;
 	fields[i].name = @"sortAlbum";
@@ -309,9 +309,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	sql = [sql stringByAppendingFormat:@"%@) values (", fields[QTD_FIELDS-1].name];
 	
 	for (i=1; i<QTD_FIELDS; i++)
-		sql = [sql stringByAppendingFormat:@"?%d,", i];
+		sql = [sql stringByAppendingFormat:@"?%03d,", i];
 	
-	sql = [sql stringByAppendingFormat:@"?%d)", QTD_FIELDS];
+	sql = [sql stringByAppendingFormat:@"?%03d)", QTD_FIELDS];
 	
 	return sql;
 }
@@ -638,7 +638,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[db bindBoolean:track.shufflable toId: 32];
 		[db bindInteger:track.skippedCount toId: 33];
 		[db bindDate:track.skippedDate toId: 34];
-		[db bindDate:track.skippedDate toId: 35];
+		[db bindString:track.show toId: 35];
 		[db bindString:track.sortAlbum toId: 36];
 		[db bindString:track.sortArtist toId: 37];
 		[db bindString:track.sortAlbumArtist toId: 38];
@@ -703,11 +703,25 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[db prepareSQL:[self selectSQL]];
 	
 	NSMutableArray *array; // Buffer
+	int i;				   // Loop
 	
 	while ([db next])
 	{
 		array = [[NSMutableArray alloc] init];
 		
+		for (i=0; i<QTD_FIELDS; i++)
+		{
+			if (( fields[i].type == FT_STRING ) || ( fields[i].type == FT_DATE ))
+				[self addObject:[db fieldString:i] toArray:array];
+			else if ( fields[i].type == FT_INTEGER )
+				[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:i]]];
+			else if ( fields[i].type == FT_DOUBLE )
+				[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:i]]];
+			else if ( fields[i].type == FT_BOOL )
+				[array addObject:[db fieldBoolean:i] ? @"True":@"False"];
+		}
+		
+		/*
 		[self addObject:[db fieldString:0] toArray:array];
 		[self addObject:[db fieldString:1] toArray:array];
 		[self addObject:[db fieldString:2] toArray:array];
@@ -755,7 +769,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[array addObject:[db fieldBoolean:44] ? @"True":@"False"];
 		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:45]]];
 		[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:46]]];
-		
+		*/
 
 		[dataset addObject:array];
 	}

@@ -32,7 +32,7 @@ int seasonNumber
 bool shufflable
 int skippedCount
 date skippedDate
-str skippedDate
+str show 
 str sortAlbum
 str sortArtist
 str sortAlbumArtist
