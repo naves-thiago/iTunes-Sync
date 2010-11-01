@@ -60,6 +60,7 @@ typedef struct Field
 -(IBAction)fill:(id)sender;
 -(IBAction)abort:(id)sender;
 -(IBAction)listDB:(id)sender;
+-(IBAction)defaultCols:(id)sender;
 
 -(void)openNoiTunesPanel;
 -(void)closeNoiTunesPanel;
@@ -89,4 +90,6 @@ typedef struct Field
 -(BOOL)restoreDB;
 -(BOOL)moveDB;
 -(void)removeBackup;
+
+-(void)setDefaultVisibleColumns;
 @end

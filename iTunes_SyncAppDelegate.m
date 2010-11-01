@@ -68,9 +68,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			row:(int)row
 {
 	NSMutableArray * a = [dataset objectAtIndex:row];
-	
+	int ID;
 	// Find which column we are at and return the value
-	return [a objectAtIndex:[[tableColumn identifier] integerValue]-1];
+	ID = [[tableColumn identifier] integerValue]-1;
+	
+	if ( ID != 29 ) // 29 -> Rating Field ID
+		return [a objectAtIndex:ID];
+	else
+		return [NSString stringWithFormat:@"%d", [[a objectAtIndex:ID] integerValue] / 20];
 	
 	/*
 	for ( i=0; i<[[tableView tableColumns] count]; i++ )
@@ -740,6 +745,46 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[alert setInformativeText:@"Done."];
 	[alert setAlertStyle:NSInformationalAlertStyle];
 	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+}
+
+-(void)setDefaultVisibleColumns
+{
+	int i;
+	
+	// Create a cell for rating
+	NSLevelIndicatorCell * cell;
+	cell = [[NSLevelIndicatorCell alloc] init];
+	[cell setLevelIndicatorStyle:NSRatingLevelIndicatorStyle];
+	[cell setIntValue:0];
+	[cell setMaxValue:5.0];
+	[cell setMinValue:0.0];
+	
+	// Clear current columns
+	while ( [[grid tableColumns] count] > 0 )
+		[grid removeTableColumn:[[grid tableColumns] objectAtIndex:0]];
+	
+	// Add new columns
+	NSTableColumn *col;
+	for (i=0; i<QTD_FIELDS; i++)
+		if ( fields[i].visible )
+		{
+			col = [[NSTableColumn alloc] init];
+			[col setIdentifier:[NSString stringWithFormat:@"%d", i+1]];
+			[[col headerCell] setStringValue:fields[i].displayName];
+			
+			if ( [fields[i].name isEqualToString:@"rating"] )
+				[col setDataCell:cell];
+			
+			[grid addTableColumn:col];
+			[col release];
+		}
+	
+	[cell release];
+}
+
+-(IBAction)defaultCols:(id)sender
+{
+	[self setDefaultVisibleColumns];
 }
 
 @end
