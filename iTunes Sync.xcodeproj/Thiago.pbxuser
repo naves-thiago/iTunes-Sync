@@ -16,9 +16,9 @@
 	};
 	256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1102, 10439}}";
-			sepNavSelRange = "{1080, 0}";
-			sepNavVisRange = "{0, 1691}";
+			sepNavIntBoundsRect = "{{0, 0}, {991, 10790}}";
+			sepNavSelRange = "{1157, 0}";
+			sepNavVisRange = "{395, 1426}";
 		};
 	};
 	256AC3F00F4B6AF500CF3369 /* iTunes_Sync_Prefix.pch */ = {
@@ -71,7 +71,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					924,
+					813,
 					20,
 					48,
 					43,
@@ -88,21 +88,38 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 310570233;
-			PBXWorkspaceStateSaveDate = 310570233;
+			PBXPerProjectTemplateStateSaveDate = 310583502;
+			PBXWorkspaceStateSaveDate = 310583502;
 		};
 		perUserProjectItems = {
-			AF1270F212622FF600665D5A /* PBXBookmark */ = AF1270F212622FF600665D5A /* PBXBookmark */;
-			AF1270F312622FF600665D5A /* PlistBookmark */ = AF1270F312622FF600665D5A /* PlistBookmark */;
-			AF132B7D12515A2A0063041D /* PBXTextBookmark */ = AF132B7D12515A2A0063041D /* PBXTextBookmark */;
-			AF3B6E7F1282F1680087482A /* PBXTextBookmark */ = AF3B6E7F1282F1680087482A /* PBXTextBookmark */;
-			AF3B6E801282F1680087482A /* PBXTextBookmark */ = AF3B6E801282F1680087482A /* PBXTextBookmark */;
-			AF3B6EA71282F2970087482A /* PBXTextBookmark */ = AF3B6EA71282F2970087482A /* PBXTextBookmark */;
-			AF7F04711273F72F00D0D83A /* PBXTextBookmark */ = AF7F04711273F72F00D0D83A /* PBXTextBookmark */;
-			AF912E8C12530E04003B3084 /* PBXTextBookmark */ = AF912E8C12530E04003B3084 /* PBXTextBookmark */;
-			AF94C8EE12558ED600829F40 /* PBXBookmark */ = AF94C8EE12558ED600829F40 /* PBXBookmark */;
-			AFD8240A127CD96A00D0A843 /* PBXTextBookmark */ = AFD8240A127CD96A00D0A843 /* PBXTextBookmark */;
-			AFD8243B127CDEFA00D0A843 /* PBXTextBookmark */ = AFD8243B127CDEFA00D0A843 /* PBXTextBookmark */;
+			AF1270F212622FF600665D5A = AF1270F212622FF600665D5A /* PBXBookmark */;
+			AF1270F312622FF600665D5A = AF1270F312622FF600665D5A /* PlistBookmark */;
+			AF132B7D12515A2A0063041D = AF132B7D12515A2A0063041D /* PBXTextBookmark */;
+			AF3B6E7F1282F1680087482A = AF3B6E7F1282F1680087482A /* PBXTextBookmark */;
+			AF3B6E801282F1680087482A = AF3B6E801282F1680087482A /* PBXTextBookmark */;
+			AF3B6EA71282F2970087482A = AF3B6EA71282F2970087482A /* PBXTextBookmark */;
+			AF5B07C3128320E700C1311B /* PBXTextBookmark */ = AF5B07C3128320E700C1311B /* PBXTextBookmark */;
+			AF5B07D11283267C00C1311B /* PBXTextBookmark */ = AF5B07D11283267C00C1311B /* PBXTextBookmark */;
+			AF5B07D9128327BD00C1311B /* PBXTextBookmark */ = AF5B07D9128327BD00C1311B /* PBXTextBookmark */;
+			AF5B07DF1283298B00C1311B /* PlistBookmark */ = AF5B07DF1283298B00C1311B /* PlistBookmark */;
+			AF5B07E01283298B00C1311B /* PBXTextBookmark */ = AF5B07E01283298B00C1311B /* PBXTextBookmark */;
+			AF5B07E11283298B00C1311B /* PBXTextBookmark */ = AF5B07E11283298B00C1311B /* PBXTextBookmark */;
+			AF5B07E412832A4900C1311B /* PBXTextBookmark */ = AF5B07E412832A4900C1311B /* PBXTextBookmark */;
+			AF5B07EA12832A6100C1311B /* PBXTextBookmark */ = AF5B07EA12832A6100C1311B /* PBXTextBookmark */;
+			AF5B07EB12832A6100C1311B /* PBXTextBookmark */ = AF5B07EB12832A6100C1311B /* PBXTextBookmark */;
+			AF5B07EF12832A9400C1311B /* PBXTextBookmark */ = AF5B07EF12832A9400C1311B /* PBXTextBookmark */;
+			AF5B07F112832AA000C1311B /* PBXTextBookmark */ = AF5B07F112832AA000C1311B /* PBXTextBookmark */;
+			AF5B07F412832B7C00C1311B /* PBXTextBookmark */ = AF5B07F412832B7C00C1311B /* PBXTextBookmark */;
+			AF5B07F812832B8C00C1311B /* PBXTextBookmark */ = AF5B07F812832B8C00C1311B /* PBXTextBookmark */;
+			AF5B07FE12832C0400C1311B /* PBXTextBookmark */ = AF5B07FE12832C0400C1311B /* PBXTextBookmark */;
+			AF5B080012832C0E00C1311B /* PBXTextBookmark */ = AF5B080012832C0E00C1311B /* PBXTextBookmark */;
+			AF5B080212832C1B00C1311B /* PBXTextBookmark */ = AF5B080212832C1B00C1311B /* PBXTextBookmark */;
+			AF5B080712832D9300C1311B /* PBXTextBookmark */ = AF5B080712832D9300C1311B /* PBXTextBookmark */;
+			AF7F04711273F72F00D0D83A = AF7F04711273F72F00D0D83A /* PBXTextBookmark */;
+			AF912E8C12530E04003B3084 = AF912E8C12530E04003B3084 /* PBXTextBookmark */;
+			AF94C8EE12558ED600829F40 = AF94C8EE12558ED600829F40 /* PBXBookmark */;
+			AFD8240A127CD96A00D0A843 = AFD8240A127CD96A00D0A843 /* PBXTextBookmark */;
+			AFD8243B127CDEFA00D0A843 = AFD8243B127CDEFA00D0A843 /* PBXTextBookmark */;
 		};
 		sourceControlManager = AFF9103E1250773A00A832D7 /* Source Control */;
 		userBuildSettings = {
@@ -128,7 +145,7 @@
 		);
 		name = "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes_Sync-Info.plist";
 		rLen = 0;
-		rLoc = 9223372036854775808;
+		rLoc = 4294967295;
 	};
 	AF132B7D12515A2A0063041D /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -155,7 +172,7 @@
 		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
 		name = "iTunes_SyncAppDelegate.m: 573";
 		rLen = 0;
-		rLoc = 13969;
+		rLoc = 14868;
 		rType = 0;
 		vrLen = 1511;
 		vrLoc = 12756;
@@ -165,10 +182,182 @@
 		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
 		name = "iTunes_SyncAppDelegate.m: 38";
 		rLen = 0;
-		rLoc = 1080;
+		rLoc = 1584;
 		rType = 0;
 		vrLen = 1691;
 		vrLoc = 0;
+	};
+	AF5B07C3128320E700C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 38";
+		rLen = 0;
+		rLoc = 1584;
+		rType = 0;
+		vrLen = 1317;
+		vrLoc = 0;
+	};
+	AF5B07D11283267C00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 64";
+		rLen = 0;
+		rLoc = 2223;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 967;
+	};
+	AF5B07D9128327BD00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 68";
+		rLen = 0;
+		rLoc = 2391;
+		rType = 0;
+		vrLen = 1192;
+		vrLoc = 1257;
+	};
+	AF5B07DF1283298B00C1311B /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* iTunes_Sync-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleName,
+		);
+		name = "/Users/Thiago/programas/Cocoa/iTunes Sync/iTunes_Sync-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	AF5B07E01283298B00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 68";
+		rLen = 0;
+		rLoc = 2391;
+		rType = 0;
+		vrLen = 1246;
+		vrLoc = 1257;
+	};
+	AF5B07E11283298B00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 31";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 1377;
+		vrLoc = 0;
+	};
+	AF5B07E412832A4900C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 30";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 1380;
+		vrLoc = 0;
+	};
+	AF5B07EA12832A6100C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 30";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 1402;
+		vrLoc = 0;
+	};
+	AF5B07EB12832A6100C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 30";
+		rLen = 0;
+		rLoc = 1036;
+		rType = 0;
+		vrLen = 1380;
+		vrLoc = 0;
+	};
+	AF5B07EF12832A9400C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 30";
+		rLen = 0;
+		rLoc = 1033;
+		rType = 0;
+		vrLen = 1399;
+		vrLoc = 3;
+	};
+	AF5B07F112832AA000C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 30";
+		rLen = 0;
+		rLoc = 1033;
+		rType = 0;
+		vrLen = 1467;
+		vrLoc = 3;
+	};
+	AF5B07F412832B7C00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 35";
+		rLen = 0;
+		rLoc = 1039;
+		rType = 0;
+		vrLen = 1406;
+		vrLoc = 191;
+	};
+	AF5B07F812832B8C00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 35";
+		rLen = 0;
+		rLoc = 1039;
+		rType = 0;
+		vrLen = 1406;
+		vrLoc = 191;
+	};
+	AF5B07FE12832C0400C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 34";
+		rLen = 0;
+		rLoc = 1033;
+		rType = 0;
+		vrLen = 1390;
+		vrLoc = 395;
+	};
+	AF5B080012832C0E00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 34";
+		rLen = 0;
+		rLoc = 1033;
+		rType = 0;
+		vrLen = 1390;
+		vrLoc = 395;
+	};
+	AF5B080212832C1B00C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 34";
+		rLen = 0;
+		rLoc = 1031;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 395;
+	};
+	AF5B080712832D9300C1311B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* iTunes_SyncAppDelegate.m */;
+		name = "iTunes_SyncAppDelegate.m: 36";
+		rLen = 0;
+		rLoc = 1157;
+		rType = 0;
+		vrLen = 1426;
+		vrLoc = 395;
 	};
 	AF7F04711273F72F00D0D83A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

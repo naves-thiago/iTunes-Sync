@@ -19,6 +19,22 @@
 	saveDir =[[saveDir stringByExpandingTildeInPath] retain];
 	dbFile = [[saveDir stringByAppendingPathComponent:@"sync.db"] retain];
 	bakDir = [[saveDir stringByAppendingPathComponent:@"sync.bak"] retain];
+
+	// Set main window size and position
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	
+	NSString *f = [prefs objectForKey:@"frame"];
+	if ( f != nil )
+	{
+		NSPoint pos;
+		NSSize size;
+		pos.x = [prefs floatForKey:@"windowX"];
+		pos.y = [prefs floatForKey:@"windowY"];
+		size.width = [prefs floatForKey:@"windowW"];
+		size.height = [prefs floatForKey:@"windowH"];
+		[window setFrame:NSMakeRect(pos.x, pos.y, size.width, size.height) display:YES];
+		[window makeKeyAndOrderFront:self];
+	}
 	
 	// Open database
 	db = [DB alloc];
@@ -59,6 +75,14 @@
 {
 	[db closeDB];
 	[db release];
+	
+	// Record current window position
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	[prefs setFloat:[window frame].origin.x forKey:@"windowX"];
+	[prefs setFloat:[window frame].origin.y forKey:@"windowY"];
+	[prefs setFloat:[window frame].size.width forKey:@"windowW"];
+	[prefs setFloat:[window frame].size.height forKey:@"windowH"];
+	[prefs setObject:@"saved" forKey:@"frame"];
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
