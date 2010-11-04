@@ -33,8 +33,10 @@
 		size.width = [prefs floatForKey:@"windowW"];
 		size.height = [prefs floatForKey:@"windowH"];
 		[window setFrame:NSMakeRect(pos.x, pos.y, size.width, size.height) display:YES];
-		[window makeKeyAndOrderFront:self];
 	}
+	
+	// Show main window
+	[window makeKeyAndOrderFront:self];
 	
 	// Open database
 	db = [DB alloc];
