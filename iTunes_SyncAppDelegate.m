@@ -34,6 +34,9 @@
 	
 	// Fill fields vector
 	[self fillFields];
+	
+	// Set Threaded animation for loadProgress ( so it will animate )
+	[loadProgress setUsesThreadedAnimation:YES];
 }
 
 - (void) endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
