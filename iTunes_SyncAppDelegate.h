@@ -53,43 +53,86 @@ typedef struct Field
 @property (assign) IBOutlet NSWindow *noiTunesPanel;
 @property (assign) IBOutlet NSWindow *loadingPanel;
 
+// Play / Pause button
 -(IBAction)play:(id)sender;
+
+// List button ( displays the iTunes music Library data on the table view )
 -(IBAction)list:(id)sender;
+
+// No iTunes Panel buttons
 -(IBAction)retryiTunes:(id)sender;
 -(IBAction)iTunesQuit:(id)sender;
--(IBAction)fill:(id)sender;
--(IBAction)abort:(id)sender;
--(IBAction)listDB:(id)sender;
--(IBAction)defaultCols:(id)sender;
 
+// Fill DB button ( calls fillDB method )
+-(IBAction)fill:(id)sender;
+
+// Loading panel abort button
+-(IBAction)abort:(id)sender;
+
+// ListDB button ( shows DB data on the table view )
+-(IBAction)listDB:(id)sender;
+
+// Changes current visible columns to those set as default on the fields vector
+-(IBAction)defaultCols:(id)sender;
+-(void)setDefaultVisibleColumns;
+
+// If iTunes is not open ask user what to do
 -(void)openNoiTunesPanel;
 -(void)closeNoiTunesPanel;
+
+// Show the progress of a slow process
 -(void)openLoadingPanel;
 -(void)closeLoadingPanel;
+
+// If anime = YES sets the progress indicator as indeterminate
 -(void)animateProgress:(BOOL)anim;
 
+// Table view ( dataset ) methods
 - (int)numberOfRowsInTableView:(NSTableView *)tableView;
 - (id)tableView:(NSTableView *)tableView
       objectValueForTableColumn:(NSTableColumn *)tableColumn
 	  row:(int)row;
 
+// Display an Alert Panel with a error message
 -(void)displayError:(NSString *)message;
+
+// Close the error message and quit app
 -(void)endErrorAndQuit:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+// Helper method to add objects to the array ( avoids problems with null objects )
 -(void)addObject:(id)obj toArray:(NSMutableArray *)array;
 
+// Fill the fields vector with supported song properties
 -(void)fillFields;
+
+// Returns the select SQL statement based on the fields vector
 -(NSString *)selectSQL;
+
+// Returns the insert SQL statement based on the fields vector
 -(NSString *)insertSQL;
 
+// Deletes all rows from music table
 -(void)emptyDB;
+
+// Reads iTunes music library and stores the data in the DB
 -(void)fillDB;
+
+// Reads the DB and display the data on the table view
 -(void)readDB;
 
+// Creates an writable copy of the default ( empty ) DB
 -(BOOL)createDB;
+
+// Copy the current DB to a temporary file
 -(BOOL)backupDB;
--(BOOL)restoreDB;
+
+// Move the current DB to a temporary file
 -(BOOL)moveDB;
+
+// Restores the backup DB to the current working file
+-(BOOL)restoreDB;
+
+// Delete the temporary DB file
 -(void)removeBackup;
 
--(void)setDefaultVisibleColumns;
 @end

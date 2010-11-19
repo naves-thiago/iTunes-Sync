@@ -115,6 +115,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	return nil;
 }
 
+#pragma mark SQL Methods
+
 -(void)fillFields
 {
 	int i;
@@ -350,6 +352,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	return sql;
 }
 
+#pragma mark Find iTunes Panel buttons
+
 -(IBAction)retryiTunes:(id)sender
 {
 	// Check if iTunes is open
@@ -362,6 +366,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[self closeNoiTunesPanel];
 	[NSApp terminate:nil];
 }
+
+#pragma mark Main Window buttons
 
 -(IBAction)play:(id)sender
 {
@@ -412,6 +418,48 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	// Start loading db on a separate thread
 	[NSThread detachNewThreadSelector:@selector(readDB) toTarget:self withObject:nil];
 }
+
+-(IBAction)defaultCols:(id)sender
+{
+	[self setDefaultVisibleColumns];
+}
+
+-(void)setDefaultVisibleColumns
+{
+	int i;
+	
+	// Create a cell for rating
+	NSLevelIndicatorCell * cell;
+	cell = [[NSLevelIndicatorCell alloc] init];
+	[cell setLevelIndicatorStyle:NSRatingLevelIndicatorStyle];
+	[cell setIntValue:0];
+	[cell setMaxValue:5.0];
+	[cell setMinValue:0.0];
+	
+	// Clear current columns
+	while ( [[grid tableColumns] count] > 0 )
+		[grid removeTableColumn:[[grid tableColumns] objectAtIndex:0]];
+	
+	// Add new columns
+	NSTableColumn *col;
+	for (i=0; i<QTD_FIELDS; i++)
+		if ( fields[i].visible )
+		{
+			col = [[NSTableColumn alloc] init];
+			[col setIdentifier:[NSString stringWithFormat:@"%d", i+1]];
+			[[col headerCell] setStringValue:fields[i].displayName];
+			
+			if ( [fields[i].name isEqualToString:@"rating"] )
+				[col setDataCell:cell];
+			
+			[grid addTableColumn:col];
+			[col release];
+		}
+	
+	[cell release];
+}
+
+#pragma mark Show Panel Methods
 
 -(void)displayError:(NSString *)message
 {
@@ -464,6 +512,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[loadProgress setIndeterminate:FALSE];
 	}
 }
+
+#pragma mark DB Methods
 
 -(BOOL)createDB
 {
@@ -774,46 +824,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[alert setInformativeText:@"Done."];
 	[alert setAlertStyle:NSInformationalAlertStyle];
 	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-}
-
--(void)setDefaultVisibleColumns
-{
-	int i;
-	
-	// Create a cell for rating
-	NSLevelIndicatorCell * cell;
-	cell = [[NSLevelIndicatorCell alloc] init];
-	[cell setLevelIndicatorStyle:NSRatingLevelIndicatorStyle];
-	[cell setIntValue:0];
-	[cell setMaxValue:5.0];
-	[cell setMinValue:0.0];
-	
-	// Clear current columns
-	while ( [[grid tableColumns] count] > 0 )
-		[grid removeTableColumn:[[grid tableColumns] objectAtIndex:0]];
-	
-	// Add new columns
-	NSTableColumn *col;
-	for (i=0; i<QTD_FIELDS; i++)
-		if ( fields[i].visible )
-		{
-			col = [[NSTableColumn alloc] init];
-			[col setIdentifier:[NSString stringWithFormat:@"%d", i+1]];
-			[[col headerCell] setStringValue:fields[i].displayName];
-			
-			if ( [fields[i].name isEqualToString:@"rating"] )
-				[col setDataCell:cell];
-			
-			[grid addTableColumn:col];
-			[col release];
-		}
-	
-	[cell release];
-}
-
--(IBAction)defaultCols:(id)sender
-{
-	[self setDefaultVisibleColumns];
 }
 
 @end
