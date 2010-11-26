@@ -58,6 +58,7 @@ typedef struct Field
 
 // List button ( displays the iTunes music Library data on the table view )
 -(IBAction)list:(id)sender;
+-(void)listTraks;
 
 // No iTunes Panel buttons
 -(IBAction)retryiTunes:(id)sender;

@@ -379,7 +379,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)list:(id)sender
 {
+	// Show loading sheet
+	[self openLoadingPanel];
+	
+	// Start filling DB
+	[NSThread detachNewThreadSelector:@selector(listTraks) toTarget:self withObject:nil];
+}
+
+-(void)listTraks
+{
 	// Show iTunes music library on the gird
+	
+	// Create an autorelease pool
+	[[NSAutoreleasePool alloc] init];
 	
 	// Array with the track data
 	NSMutableArray * data;
@@ -389,6 +401,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 	// Get the tracks
 	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
+	
+	// Set progress indicator
+	[loadProgress setMaxValue:(double)[tracks count]];
+	[loadProgress setDoubleValue:0.0];
 	
 	// Iterate
 	iTunesTrack * track;
@@ -446,6 +462,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		
 		
 		[dataset addObject:data];
+		[loadProgress incrementBy:1.0];
 	}
 		
 	
@@ -454,6 +471,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 	// Tell grid to reload
 	[grid reloadData];
+	
+	// Close the loading panel
+	[self closeLoadingPanel];
 }
 
 -(IBAction)fill:(id)sender

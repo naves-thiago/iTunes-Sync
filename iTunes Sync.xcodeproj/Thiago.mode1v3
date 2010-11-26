@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>AFF4B12C129F6DF1004FE7E7</string>
+										<string>AFF4B13C129F7011004FE7E7</string>
 										<key>history</key>
 										<array>
 											<string>AF132B7D12515A2A0063041D</string>
@@ -337,10 +337,10 @@
 											<string>AFD8243B127CDEFA00D0A843</string>
 											<string>AF5B07DF1283298B00C1311B</string>
 											<string>AF9CC86F12907965004FAAC3</string>
-											<string>AFF4B0FE129F671E004FE7E7</string>
 											<string>AFF4B0FF129F671E004FE7E7</string>
 											<string>AFF4B100129F671E004FE7E7</string>
-											<string>AFF4B101129F671E004FE7E7</string>
+											<string>AFF4B134129F6F95004FE7E7</string>
+											<string>AFF4B135129F6F95004FE7E7</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -567,7 +567,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>iTunes_SyncAppDelegate.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -584,6 +584,8 @@
 							<string>218pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
