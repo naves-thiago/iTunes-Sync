@@ -896,14 +896,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	// Stop animation and close panel
 	[self animateProgress:NO];
 	[self closeLoadingPanel];
-	
-	// Display Done message
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	[alert addButtonWithTitle:@"OK"];
-	[alert setMessageText:@"Fill DB:"];
-	[alert setInformativeText:@"Done."];
-	[alert setAlertStyle:NSInformationalAlertStyle];
-	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 @end
