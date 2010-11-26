@@ -66,6 +66,9 @@
 {
 	if (obj != nil)
 		[array addObject:obj];
+	else
+		[array addObject:@" "];
+
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -378,6 +381,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
 	// Show iTunes music library on the gird
 	
+	// Array with the track data
+	NSMutableArray * data;
+	
 	// Clear dataset
 	[dataset removeAllObjects];
 	
@@ -387,7 +393,61 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	// Iterate
 	iTunesTrack * track;
 	for ( track in tracks )
-		[dataset addObject:[NSString stringWithString:track.name]];
+	{
+		data = [[NSMutableArray alloc] initWithCapacity:QTD_FIELDS];
+		
+		[self addObject:track.name toArray:data];
+		[self addObject:track.album toArray:data];
+		[self addObject:track.albumArtist toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.albumRating] toArray:data];
+		[self addObject:track.artist toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.bitRate] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%f", track.bookmark] toArray:data];
+		[self addObject:track.bookmarkable ? @"Yes" : @"No" toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.bpm] toArray:data];
+		[self addObject:track.category toArray:data];
+		[self addObject:track.comment toArray:data];
+		[self addObject:track.compilation ? @"Yes" : @"No" toArray:data];
+		[self addObject:track.composer toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.databaseID] toArray:data];
+		[self addObject:track.objectDescription toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.discCount] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.discNumber] toArray:data];
+		[self addObject:track.enabled ? @"Yes" : @"No" toArray:data];
+		[self addObject:track.episodeID toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.episodeNumber] toArray:data];
+		[self addObject:track.EQ toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%f", track.finish] toArray:data];
+		[self addObject:track.gapless ? @"Yes" : @"No" toArray:data];
+		[self addObject:track.genre toArray:data];
+		[self addObject:track.grouping toArray:data];
+		[self addObject:track.longDescription toArray:data];
+		[self addObject:track.lyrics toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.playedCount] toArray:data];
+		[self addObject:[track.playedDate description] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.rating] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.seasonNumber] toArray:data];
+		[self addObject:track.shufflable ? @"Yes" : @"No" toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.skippedCount] toArray:data];
+		[self addObject:[track.skippedDate description] toArray:data];
+		[self addObject:track.show toArray:data];
+		[self addObject:track.sortAlbum toArray:data];
+		[self addObject:track.sortArtist toArray:data];
+		[self addObject:track.sortAlbumArtist toArray:data];
+		[self addObject:track.sortName toArray:data];
+		[self addObject:track.sortComposer toArray:data];
+		[self addObject:track.sortShow toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%f", track.start] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.trackCount] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.trackNumber] toArray:data];
+		[self addObject:track.unplayed ? @"Yes" : @"No" toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.volumeAdjustment] toArray:data];
+		[self addObject:[NSString stringWithFormat:@"%d", track.year] toArray:data];
+		
+		
+		[dataset addObject:data];
+	}
+		
 	
 	//	for (int i=0; i<[tracks count]; i++ )
 	//		[dataset addObject:[NSString stringWithString:[[tracks objectAtIndex:i] title]]];
