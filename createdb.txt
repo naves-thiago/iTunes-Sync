@@ -94,7 +94,9 @@ trackCount integer,
 trackNumber integer,
 unplayed boolean,
 volumeAdjustment integer,
-year integer);
+year integer,
+added boolean,
+deleted boolean );
 
-create table diff_date (
+create table dates (
 music char(25) );
