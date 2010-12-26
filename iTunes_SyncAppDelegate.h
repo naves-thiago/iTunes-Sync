@@ -115,6 +115,9 @@ typedef struct Field
 // Deletes all rows from music table
 -(void)emptyDB;
 
+// Helper function to fill parameters data from the track properties
+-(void)bindTrack:(iTunesTrack *)track;
+
 // Reads iTunes music library and stores the data in the DB
 -(void)fillDB;
 
@@ -138,5 +141,8 @@ typedef struct Field
 
 // Reads the iTunes Library and compares with the old Library stored in the DB
 -(void)makeDiff;
+
+// Clears the Diff table to start a new sync
+-(void)clearDiffTable;
 
 @end

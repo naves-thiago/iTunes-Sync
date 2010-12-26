@@ -709,6 +709,59 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[fileManager removeItemAtPath:bakDir error:nil];
 }
 
+-(void)bindTrack:(iTunesTrack *)track
+{
+	// Helper function to fill parameters data from the track properties
+	
+	[db bindString:track.name toId: 1];
+	[db bindString:track.album toId: 2];
+	[db bindString:track.albumArtist toId: 3];
+	[db bindInteger:track.albumRating toId: 4];
+	[db bindString:track.artist toId: 5];
+	[db bindInteger:track.bitRate toId: 6];
+	[db bindDouble:track.bookmark toId: 7];
+	[db bindBoolean:track.bookmarkable toId: 8];
+	[db bindInteger:track.bpm toId: 9];
+	[db bindString:track.category toId: 10];
+	[db bindString:track.comment toId: 11];
+	[db bindBoolean:track.compilation toId: 12];
+	[db bindString:track.composer toId: 13];
+	[db bindInteger:track.databaseID toId: 14];
+	[db bindString:track.objectDescription toId: 15];
+	[db bindInteger:track.discCount toId: 16];
+	[db bindInteger:track.discNumber toId: 17];
+	[db bindBoolean:track.enabled toId: 18];
+	[db bindString:track.episodeID toId: 19];
+	[db bindInteger:track.episodeNumber toId: 20];
+	[db bindString:track.EQ toId: 21];
+	[db bindDouble:track.finish toId: 22];
+	[db bindBoolean:track.gapless toId: 23];
+	[db bindString:track.genre toId: 24];
+	[db bindString:track.grouping toId: 25];
+	[db bindString:track.longDescription toId: 26];
+	[db bindString:track.lyrics toId: 27];
+	[db bindInteger:track.playedCount toId: 28];
+	[db bindDate:track.playedDate toId: 29];
+	[db bindInteger:track.rating toId: 30];
+	[db bindInteger:track.seasonNumber toId: 31];
+	[db bindBoolean:track.shufflable toId: 32];
+	[db bindInteger:track.skippedCount toId: 33];
+	[db bindDate:track.skippedDate toId: 34];
+	[db bindString:track.show toId: 35];
+	[db bindString:track.sortAlbum toId: 36];
+	[db bindString:track.sortArtist toId: 37];
+	[db bindString:track.sortAlbumArtist toId: 38];
+	[db bindString:track.sortName toId: 39];
+	[db bindString:track.sortComposer toId: 40];
+	[db bindString:track.sortShow toId: 41];
+	[db bindDouble:track.start toId: 42];
+	[db bindInteger:track.trackCount toId: 43];
+	[db bindInteger:track.trackNumber toId: 44];
+	[db bindBoolean:track.unplayed toId: 45];
+	[db bindInteger:track.volumeAdjustment toId: 46];
+	[db bindInteger:track.year toId: 47];
+}
+
 - (void)fillDB
 {
 	// Copy iTunes' Music Library to DB
@@ -768,53 +821,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		}
 		
 		// Replace the parameters
-		[db bindString:track.name toId: 1];
-		[db bindString:track.album toId: 2];
-		[db bindString:track.albumArtist toId: 3];
-		[db bindInteger:track.albumRating toId: 4];
-		[db bindString:track.artist toId: 5];
-		[db bindInteger:track.bitRate toId: 6];
-		[db bindDouble:track.bookmark toId: 7];
-		[db bindBoolean:track.bookmarkable toId: 8];
-		[db bindInteger:track.bpm toId: 9];
-		[db bindString:track.category toId: 10];
-		[db bindString:track.comment toId: 11];
-		[db bindBoolean:track.compilation toId: 12];
-		[db bindString:track.composer toId: 13];
-		[db bindInteger:track.databaseID toId: 14];
-		[db bindString:track.objectDescription toId: 15];
-		[db bindInteger:track.discCount toId: 16];
-		[db bindInteger:track.discNumber toId: 17];
-		[db bindBoolean:track.enabled toId: 18];
-		[db bindString:track.episodeID toId: 19];
-		[db bindInteger:track.episodeNumber toId: 20];
-		[db bindString:track.EQ toId: 21];
-		[db bindDouble:track.finish toId: 22];
-		[db bindBoolean:track.gapless toId: 23];
-		[db bindString:track.genre toId: 24];
-		[db bindString:track.grouping toId: 25];
-		[db bindString:track.longDescription toId: 26];
-		[db bindString:track.lyrics toId: 27];
-		[db bindInteger:track.playedCount toId: 28];
-		[db bindDate:track.playedDate toId: 29];
-		[db bindInteger:track.rating toId: 30];
-		[db bindInteger:track.seasonNumber toId: 31];
-		[db bindBoolean:track.shufflable toId: 32];
-		[db bindInteger:track.skippedCount toId: 33];
-		[db bindDate:track.skippedDate toId: 34];
-		[db bindString:track.show toId: 35];
-		[db bindString:track.sortAlbum toId: 36];
-		[db bindString:track.sortArtist toId: 37];
-		[db bindString:track.sortAlbumArtist toId: 38];
-		[db bindString:track.sortName toId: 39];
-		[db bindString:track.sortComposer toId: 40];
-		[db bindString:track.sortShow toId: 41];
-		[db bindDouble:track.start toId: 42];
-		[db bindInteger:track.trackCount toId: 43];
-		[db bindInteger:track.trackNumber toId: 44];
-		[db bindBoolean:track.unplayed toId: 45];
-		[db bindInteger:track.volumeAdjustment toId: 46];
-		[db bindInteger:track.year toId: 47];		
+		[self bindTrack:track];
 		
 		// Try to execute SQL
 		if ([db execute] == NO)	
@@ -902,7 +909,63 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(void)makeDiff
 {
+	// Store the Library Diff for the sync
 	
+	// Create a auto release pool, since we are running on a thread
+	[[NSAutoreleasePool alloc] init];
+	
+	// Clear any old sync data to start a new one
+	[self clearDiffTable];
+	
+	// Get Tracks
+	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
+	
+	// Set progress indicator
+	[loadProgress setMaxValue:(double)[tracks count]];
+	[loadProgress setDoubleValue:0.0];
+	
+	// Prepare find track sql
+	NSString * select = [self selectSQL]l
+	select = [select stringByAppendingFormat:@" where databaseID = ?%03d", QTD_FIELDS+1];
+	
+	// Iterate
+	iTunesTrack *track; // Iterator
+
+	for ( track in tracks )
+	{
+		// Check abort flag
+		if ( abortFlag )
+		{
+			// Stop current DB operation
+			[db endExec];
+			
+			// Clear sync data
+			[self clearDiffTable];			
+			
+			// Close the panel
+			[self closeLoadingPanel];
+			
+			return;
+		}
+	
+		// Compare track with DB
+	
+		// Find current track in the DB
+		[db prepareSQL:select];
+		[db bindInteger:track.databaseID toId:QTD_FIELDS+1];
+		[db next];
+		
+		// Check if the track was found
+		
+		
+	}
+}
+
+-(void)clearDiffTable
+{
+	[db prepareSQL:@"delete from diff_music"];
+	[db execute];
+	[db endExec];
 }
 
 @end
