@@ -898,4 +898,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[self closeLoadingPanel];
 }
 
+#pragma mark DIFF
+
+-(void)makeDiff
+{
+	
+}
+
 @end

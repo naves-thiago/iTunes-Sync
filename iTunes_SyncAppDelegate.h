@@ -136,4 +136,7 @@ typedef struct Field
 // Delete the temporary DB file
 -(void)removeBackup;
 
+// Reads the iTunes Library and compares with the old Library stored in the DB
+-(void)makeDiff;
+
 @end
