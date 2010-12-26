@@ -4,3 +4,8 @@ Icon/Sync.png
 Supported Parameters.txt
 build
 tmp*
+.DS_STORE
+*.swp
+*~.nib
+*.mode1v3
+*.pbxuser
