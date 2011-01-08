@@ -145,4 +145,7 @@ typedef struct Field
 // Clears the Diff table to start a new sync
 -(void)clearDiffTable;
 
+// Stores the diff for a track in DB
+-(void)diffTrack:(iTunesTrack *)track isNew:(BOOL)isNew;
+
 @end
