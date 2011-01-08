@@ -25,6 +25,7 @@ str genre
 str grouping
 str longDescription
 str lyrics
+str persistentID
 int playedCount
 date playedDate
 int rating
