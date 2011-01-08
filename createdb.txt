@@ -46,7 +46,8 @@ trackNumber integer,
 unplayed boolean,
 uuid char(16),
 volumeAdjustment integer,
-year integer);
+year integer,
+deleted boolean);
 
 create table diff_music (
 name varchar(150),
