@@ -930,6 +930,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadProgress setMaxValue:(double)[tracks count]];
 	[loadProgress setDoubleValue:0.0];
 	
+	// Create a flag so we know we already inserted a row in diff_music and do a update instead of an insert
+	// in case more than one field changed
+	BOOL update = FALSE;
+	
 	// Prepare find track sql
 	NSString * select = [self selectSQL];
 	select = [select stringByAppendingFormat:@" where uuid = ?%03d", QTD_FIELDS+1];
@@ -960,9 +964,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[db prepareSQL:select];
 		[db bindString:track.persistentID toId:QTD_FIELDS+1];
 		[db next];
+	
+		// Set the update flag
+		update = FALSE;
 		
 		// Check if the track was found
-		
+		if ( [[db fieldString:45] isEqualToString:track.persistentID] )
+		{
+			
+		}
 		
 	}
 }
