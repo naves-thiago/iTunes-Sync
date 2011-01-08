@@ -12,7 +12,7 @@
 
 #define	ITUNES_USER_LIB 0
 #define ITUNES_MUSIC 0
-#define QTD_FIELDS 47
+#define QTD_FIELDS 48
 
 typedef enum Field_type {
 	FT_STRING,

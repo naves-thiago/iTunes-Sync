@@ -314,6 +314,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	fields[i].name = @"unplayed";
 	fields[i].displayName = @"Unplayed";
 	i+=1;
+	fields[i].type = FT_STRING;
+	fields[i].name = @"uuid";
+	fields[i].displayName = @"PersistentID";
+	i+=1;
 	fields[i].type = FT_INTEGER;
 	fields[i].name = @"volumeAdjustment";
 	fields[i].displayName = @"Volume Adjustment";
@@ -457,6 +461,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[self addObject:[NSString stringWithFormat:@"%d", track.trackCount] toArray:data];
 		[self addObject:[NSString stringWithFormat:@"%d", track.trackNumber] toArray:data];
 		[self addObject:track.unplayed ? @"Yes" : @"No" toArray:data];
+		[self addObject:track.persistentID toArray:data]; // UUID
 		[self addObject:[NSString stringWithFormat:@"%d", track.volumeAdjustment] toArray:data];
 		[self addObject:[NSString stringWithFormat:@"%d", track.year] toArray:data];
 		
@@ -758,8 +763,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[db bindInteger:track.trackCount toId: 43];
 	[db bindInteger:track.trackNumber toId: 44];
 	[db bindBoolean:track.unplayed toId: 45];
-	[db bindInteger:track.volumeAdjustment toId: 46];
-	[db bindInteger:track.year toId: 47];
+	[db bindString:track.persistentID toId:46];
+	[db bindInteger:track.volumeAdjustment toId: 47];
+	[db bindInteger:track.year toId: 48];
 }
 
 - (void)fillDB
@@ -925,8 +931,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadProgress setDoubleValue:0.0];
 	
 	// Prepare find track sql
-	NSString * select = [self selectSQL]l
-	select = [select stringByAppendingFormat:@" where databaseID = ?%03d", QTD_FIELDS+1];
+	NSString * select = [self selectSQL];
+	select = [select stringByAppendingFormat:@" where uuid = ?%03d", QTD_FIELDS+1];
 	
 	// Iterate
 	iTunesTrack *track; // Iterator
@@ -952,7 +958,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 		// Find current track in the DB
 		[db prepareSQL:select];
-		[db bindInteger:track.databaseID toId:QTD_FIELDS+1];
+		[db bindString:track.persistentID toId:QTD_FIELDS+1];
 		[db next];
 		
 		// Check if the track was found
