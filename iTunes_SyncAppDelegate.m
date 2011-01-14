@@ -1003,995 +1003,427 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(void)diffTrack:(iTunesTrack *)track
 {
-	// Create a flag so we know we already inserted a row in diff_music and do a update instead of an insert
-	// in case more than one field changed
-	BOOL update = TRUE;
-	
 	if ( ![[db fieldString:0] isEqualToString:track.name ] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set name=?001 where uuid=?002"];
-			[db bindString:track.name toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (name, uuid) values (?001, ?002)"];
-			[db bindString:track.name toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set name =?001 where uuid=?002"];
+		[db bindString:track.name  toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:1] isEqualToString:track.album] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set album=?001 where uuid=?002"];
-			[db bindString:track.album toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (album, uuid) values (?001, ?002)"];
-			[db bindString:track.album toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set album=?001 where uuid=?002"];
+		[db bindString:track.album toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:2] isEqualToString:track.albumArtist] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set albumArtist=?001 where uuid=?002"];
-			[db bindString:track.albumArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (albumArtist, uuid) values (?001, ?002)"];
-			[db bindString:track.albumArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set albumArtist=?001 where uuid=?002"];
+		[db bindString:track.albumArtist toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:3] != track.albumRating )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set albumRating=?001 where uuid=?002"];
-			[db bindInteger:track.albumRating toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (albumRating, uuid) values (?001, ?002)"];
-			[db bindInteger:track.albumRating toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set albumRating=?001 where uuid=?002"];
+		[db bindInteger:track.albumRating toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:4] isEqualToString:track.artist] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set artist=?001 where uuid=?002"];
-			[db bindString:track.artist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (artist, uuid) values (?001, ?002)"];
-			[db bindString:track.artist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set artist=?001 where uuid=?002"];
+		[db bindString:track.artist toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:5] != track.bitRate )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set bitRate=?001 where uuid=?002"];
-			[db bindInteger:track.bitRate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (bitRate, uuid) values (?001, ?002)"];
-			[db bindInteger:track.bitRate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set bitRate=?001 where uuid=?002"];
+		[db bindInteger:track.bitRate toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldDouble:6] != track.bookmark )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set bookmark=?001 where uuid=?002"];
-			[db bindDouble:track.bookmark toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (bookmark, uuid) values (?001, ?002)"];
-			[db bindDouble:track.bookmark toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set bookmark=?001 where uuid=?002"];
+		[db bindDouble:track.bookmark toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:7] != track.bookmarkable )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set bookmarkable=?001 where uuid=?002"];
-			[db bindBoolean:track.bookmarkable toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (bookmarkable, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.bookmarkable toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set bookmarkable=?001 where uuid=?002"];
+		[db bindBoolean:track.bookmarkable toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:8] != track.bpm )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set bpm=?001 where uuid=?002"];
-			[db bindInteger:track.bpm toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (bpm, uuid) values (?001, ?002)"];
-			[db bindInteger:track.bpm toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set bpm=?001 where uuid=?002"];
+		[db bindInteger:track.bpm toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:9] isEqualToString:track.category] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set category=?001 where uuid=?002"];
-			[db bindString:track.category toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (category, uuid) values (?001, ?002)"];
-			[db bindString:track.category toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set category=?001 where uuid=?002"];
+		[db bindString:track.category toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:10] isEqualToString:track.comment] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set comment=?001 where uuid=?002"];
-			[db bindString:track.comment toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (comment, uuid) values (?001, ?002)"];
-			[db bindString:track.comment toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set comment=?001 where uuid=?002"];
+		[db bindString:track.comment toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:11] != track.compilation )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set compilation=?001 where uuid=?002"];
-			[db bindBoolean:track.compilation toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (compilation, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.compilation toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set compilation=?001 where uuid=?002"];
+		[db bindBoolean:track.compilation toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:12] isEqualToString:track.composer] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set composer=?001 where uuid=?002"];
-			[db bindString:track.composer toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (composer, uuid) values (?001, ?002)"];
-			[db bindString:track.composer toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set composer=?001 where uuid=?002"];
+		[db bindString:track.composer toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:13] != track.databaseID )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set databaseID=?001 where uuid=?002"];
-			[db bindInteger:track.databaseID toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (databaseID, uuid) values (?001, ?002)"];
-			[db bindInteger:track.databaseID toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set databaseID=?001 where uuid=?002"];
+		[db bindInteger:track.databaseID toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:14] isEqualToString:track.objectDescription] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set objectDescription=?001 where uuid=?002"];
-			[db bindString:track.objectDescription toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (objectDescription, uuid) values (?001, ?002)"];
-			[db bindString:track.objectDescription toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set objectDescription=?001 where uuid=?002"];
+		[db bindString:track.objectDescription toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:15] != track.discCount )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set discCount=?001 where uuid=?002"];
-			[db bindInteger:track.discCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (discCount, uuid) values (?001, ?002)"];
-			[db bindInteger:track.discCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set discCount=?001 where uuid=?002"];
+		[db bindInteger:track.discCount toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:16] != track.discNumber )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set discNumber=?001 where uuid=?002"];
-			[db bindInteger:track.discNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (discNumber, uuid) values (?001, ?002)"];
-			[db bindInteger:track.discNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set discNumber=?001 where uuid=?002"];
+		[db bindInteger:track.discNumber toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:17] != track.enabled )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set enabled=?001 where uuid=?002"];
-			[db bindBoolean:track.enabled toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (enabled, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.enabled toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set enabled=?001 where uuid=?002"];
+		[db bindBoolean:track.enabled toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:18] isEqualToString:track.episodeID] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set episodeID=?001 where uuid=?002"];
-			[db bindString:track.episodeID toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (episodeID, uuid) values (?001, ?002)"];
-			[db bindString:track.episodeID toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set episodeID=?001 where uuid=?002"];
+		[db bindString:track.episodeID toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:19] != track.episodeNumber )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set episodeNumber=?001 where uuid=?002"];
-			[db bindInteger:track.episodeNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (episodeNumber, uuid) values (?001, ?002)"];
-			[db bindInteger:track.episodeNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set episodeNumber=?001 where uuid=?002"];
+		[db bindInteger:track.episodeNumber toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:20] isEqualToString:track.EQ] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set EQ=?001 where uuid=?002"];
-			[db bindString:track.EQ toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (EQ, uuid) values (?001, ?002)"];
-			[db bindString:track.EQ toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set EQ=?001 where uuid=?002"];
+		[db bindString:track.EQ toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldDouble:21] != track.finish )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set finish=?001 where uuid=?002"];
-			[db bindDouble:track.finish toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (finish, uuid) values (?001, ?002)"];
-			[db bindDouble:track.finish toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set finish=?001 where uuid=?002"];
+		[db bindDouble:track.finish toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:22] != track.gapless )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set gapless=?001 where uuid=?002"];
-			[db bindBoolean:track.gapless toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (gapless, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.gapless toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set gapless=?001 where uuid=?002"];
+		[db bindBoolean:track.gapless toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:23] isEqualToString:track.genre] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set genre=?001 where uuid=?002"];
-			[db bindString:track.genre toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (genre, uuid) values (?001, ?002)"];
-			[db bindString:track.genre toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set genre=?001 where uuid=?002"];
+		[db bindString:track.genre toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:24] isEqualToString:track.grouping] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set grouping=?001 where uuid=?002"];
-			[db bindString:track.grouping toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (grouping, uuid) values (?001, ?002)"];
-			[db bindString:track.grouping toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set grouping=?001 where uuid=?002"];
+		[db bindString:track.grouping toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:25] isEqualToString:track.longDescription] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set longDescription=?001 where uuid=?002"];
-			[db bindString:track.longDescription toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (longDescription, uuid) values (?001, ?002)"];
-			[db bindString:track.longDescription toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set longDescription=?001 where uuid=?002"];
+		[db bindString:track.longDescription toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:26] isEqualToString:track.lyrics] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set lyrics=?001 where uuid=?002"];
-			[db bindString:track.lyrics toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (lyrics, uuid) values (?001, ?002)"];
-			[db bindString:track.lyrics toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set lyrics=?001 where uuid=?002"];
+		[db bindString:track.lyrics toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:27] != track.playedCount )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set playedCount=?001 where uuid=?002"];
-			[db bindInteger:track.playedCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (playedCount, uuid) values (?001, ?002)"];
-			[db bindInteger:track.playedCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set playedCount=?001 where uuid=?002"];
+		[db bindInteger:track.playedCount toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldDate:28] isEqualToDate:track.playedDate] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set playedDate=?001 where uuid=?002"];
-			[db bindDate:track.playedDate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (playedDate, uuid) values (?001, ?002)"];
-			[db bindDate:track.playedDate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set playedDate=?001 where uuid=?002"];
+		[db bindDate:track.playedDate toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:29] != track.rating )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set rating=?001 where uuid=?002"];
-			[db bindInteger:track.rating toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (rating, uuid) values (?001, ?002)"];
-			[db bindInteger:track.rating toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set rating=?001 where uuid=?002"];
+		[db bindInteger:track.rating toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:30] != track.seasonNumber )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set seasonNumber=?001 where uuid=?002"];
-			[db bindInteger:track.seasonNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (seasonNumber, uuid) values (?001, ?002)"];
-			[db bindInteger:track.seasonNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set seasonNumber=?001 where uuid=?002"];
+		[db bindInteger:track.seasonNumber toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:31] != track.shufflable )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set shufflable=?001 where uuid=?002"];
-			[db bindBoolean:track.shufflable toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (shufflable, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.shufflable toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set shufflable=?001 where uuid=?002"];
+		[db bindBoolean:track.shufflable toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:32] != track.skippedCount )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set skippedCount=?001 where uuid=?002"];
-			[db bindInteger:track.skippedCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (skippedCount, uuid) values (?001, ?002)"];
-			[db bindInteger:track.skippedCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set skippedCount=?001 where uuid=?002"];
+		[db bindInteger:track.skippedCount toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldDate:33] isEqualToDate:track.skippedDate] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set skippedDate=?001 where uuid=?002"];
-			[db bindDate:track.skippedDate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (skippedDate, uuid) values (?001, ?002)"];
-			[db bindDate:track.skippedDate toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set skippedDate=?001 where uuid=?002"];
+		[db bindDate:track.skippedDate toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:34] isEqualToString:track.show ] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set show =?001 where uuid=?002"];
-			[db bindString:track.show  toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (show , uuid) values (?001, ?002)"];
-			[db bindString:track.show  toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set show =?001 where uuid=?002"];
+		[db bindString:track.show  toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:35] isEqualToString:track.sortAlbum] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortAlbum=?001 where uuid=?002"];
-			[db bindString:track.sortAlbum toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortAlbum, uuid) values (?001, ?002)"];
-			[db bindString:track.sortAlbum toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortAlbum=?001 where uuid=?002"];
+		[db bindString:track.sortAlbum toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:36] isEqualToString:track.sortArtist] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortArtist=?001 where uuid=?002"];
-			[db bindString:track.sortArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortArtist, uuid) values (?001, ?002)"];
-			[db bindString:track.sortArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortArtist=?001 where uuid=?002"];
+		[db bindString:track.sortArtist toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:37] isEqualToString:track.sortAlbumArtist] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortAlbumArtist=?001 where uuid=?002"];
-			[db bindString:track.sortAlbumArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortAlbumArtist, uuid) values (?001, ?002)"];
-			[db bindString:track.sortAlbumArtist toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortAlbumArtist=?001 where uuid=?002"];
+		[db bindString:track.sortAlbumArtist toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:38] isEqualToString:track.sortName] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortName=?001 where uuid=?002"];
-			[db bindString:track.sortName toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortName, uuid) values (?001, ?002)"];
-			[db bindString:track.sortName toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortName=?001 where uuid=?002"];
+		[db bindString:track.sortName toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:39] isEqualToString:track.sortComposer] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortComposer=?001 where uuid=?002"];
-			[db bindString:track.sortComposer toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortComposer, uuid) values (?001, ?002)"];
-			[db bindString:track.sortComposer toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortComposer=?001 where uuid=?002"];
+		[db bindString:track.sortComposer toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( ![[db fieldString:40] isEqualToString:track.sortShow] )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set sortShow=?001 where uuid=?002"];
-			[db bindString:track.sortShow toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (sortShow, uuid) values (?001, ?002)"];
-			[db bindString:track.sortShow toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set sortShow=?001 where uuid=?002"];
+		[db bindString:track.sortShow toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldDouble:41] != track.start )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set start=?001 where uuid=?002"];
-			[db bindDouble:track.start toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (start, uuid) values (?001, ?002)"];
-			[db bindDouble:track.start toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set start=?001 where uuid=?002"];
+		[db bindDouble:track.start toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:42] != track.trackCount )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set trackCount=?001 where uuid=?002"];
-			[db bindInteger:track.trackCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (trackCount, uuid) values (?001, ?002)"];
-			[db bindInteger:track.trackCount toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set trackCount=?001 where uuid=?002"];
+		[db bindInteger:track.trackCount toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:43] != track.trackNumber )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set trackNumber=?001 where uuid=?002"];
-			[db bindInteger:track.trackNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (trackNumber, uuid) values (?001, ?002)"];
-			[db bindInteger:track.trackNumber toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set trackNumber=?001 where uuid=?002"];
+		[db bindInteger:track.trackNumber toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldBoolean:44] != track.unplayed )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set unplayed=?001 where uuid=?002"];
-			[db bindBoolean:track.unplayed toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (unplayed, uuid) values (?001, ?002)"];
-			[db bindBoolean:track.unplayed toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set unplayed=?001 where uuid=?002"];
+		[db bindBoolean:track.unplayed toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:46] != track.volumeAdjustment )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set volumeAdjustment=?001 where uuid=?002"];
-			[db bindInteger:track.volumeAdjustment toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (volumeAdjustment, uuid) values (?001, ?002)"];
-			[db bindInteger:track.volumeAdjustment toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set volumeAdjustment=?001 where uuid=?002"];
+		[db bindInteger:track.volumeAdjustment toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 	
 	if ( [db fieldInt:47] != track.year )
 	{
-		if ( update )
-		{
-			[db prepareSQL:@"update diff_music set year=?001 where uuid=?002"];
-			[db bindInteger:track.year toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-		}
-		else
-		{
-			[db prepareSQL:@"insert into diff_music (year, uuid) values (?001, ?002)"];
-			[db bindInteger:track.year toId:1];
-			[db bindString:track.persistentID toId:2];
-			[db execute];
-			[db endExec];
-			update = TRUE;
-		}
+		[db prepareSQL:@"update diff_music set year=?001 where uuid=?002"];
+		[db bindInteger:track.year toId:1];
+		[db bindString:track.persistentID toId:2];
+		[db execute];
+		[db endExec];
 	}
 }
 
