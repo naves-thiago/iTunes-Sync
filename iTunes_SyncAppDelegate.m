@@ -930,11 +930,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadProgress setMaxValue:(double)[tracks count]];
 	[loadProgress setDoubleValue:0.0];
 	
-	// Mark all tracks as Deleted
-	[db prepareSQL:@"update music set deleted=true"];
-	[db execute];
-	[db endExec];
-	
 	// Prepare find track sql
 	NSString * select = [self selectSQL];
 	select = [select stringByAppendingString:@" where uuid = ?001"];
@@ -969,12 +964,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		// Check if the track was found
 		if ( [[db fieldString:45] isEqualToString:track.persistentID] )
 		{
-			// Mark as non-deleted
-			[db prepareSQL:@"update music set deleted=false where uuid=?001"];
-			[db bindString:track.persistentID toId:1];
-			[db execute];
-			[db endExec];
-			
 			// Make the diff
 			[self diffTrack:track isNew:FALSE];
 		}
