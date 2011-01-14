@@ -964,21 +964,34 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		// Check if the track was found
 		if ( [[db fieldString:45] isEqualToString:track.persistentID] )
 		{
-			// Make the diff
-			[self diffTrack:track isNew:FALSE];
-		}
-		else
-		{
-			// Add to the diff table flagged as new ( added = true )
-			[db prepareSQL:@"insert into diff_music (uuid, added) values (?001, true)"];
+			// Add to the diff table flagged as not deleted
+			[db prepareSQL:@"insert into diff_music (uuid, added, deleted) values (?001, 0, 1)"];
 			[db bindString:track.persistentID toId:1];
 			[db execute];
 			[db endExec];
 			
 			// Make the diff
-			[self diffTrack:track isNew:TRUE];
-		}	
+			[self diffTrack:track];
+		}
+		else
+		{
+			// Add to the diff table flagged as new ( added = true )
+			[db prepareSQL:@"insert into diff_music (uuid, added, deleted) values (?001, 1, 0)"];
+			[db bindString:track.persistentID toId:1];
+			[db execute];
+			[db endExec];
+			
+			// Make the diff
+			[self diffTrack:track];
+		}
 	}
+	
+	// Add deleted tracks to the diff_music table marked as deleted
+	[db prepareSQL:@"insert into diff_music ( uuid, deleted ) select uuid, 1 as deleted from music except select uuid, 1 as deleted from diff_music"];
+	[db execute];
+	[db endExec];
+	
+
 }
 
 -(void)clearDiffTable
@@ -988,11 +1001,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[db endExec];
 }
 
--(void)diffTrack:(iTunesTrack *)track isNew:(BOOL)isNew
+-(void)diffTrack:(iTunesTrack *)track
 {
 	// Create a flag so we know we already inserted a row in diff_music and do a update instead of an insert
 	// in case more than one field changed
-	BOOL update = isNew;
+	BOOL update = TRUE;
 	
 	if ( ![[db fieldString:0] isEqualToString:track.name ] )
 	{

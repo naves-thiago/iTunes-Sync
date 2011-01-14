@@ -146,6 +146,6 @@ typedef struct Field
 -(void)clearDiffTable;
 
 // Stores the diff for a track in DB
--(void)diffTrack:(iTunesTrack *)track isNew:(BOOL)isNew;
+-(void)diffTrack:(iTunesTrack *)track;
 
 @end
