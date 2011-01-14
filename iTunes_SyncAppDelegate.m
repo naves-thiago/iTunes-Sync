@@ -937,7 +937,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 	// Prepare find track sql
 	NSString * select = [self selectSQL];
-	select = [select stringByAppendingFormat:@" where uuid = ?%03d", QTD_FIELDS+1];
+	select = [select stringByAppendingString:@" where uuid = ?001"];
 	
 	// Iterate
 	iTunesTrack *track; // Iterator
@@ -963,7 +963,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	
 		// Find current track in the DB
 		[db prepareSQL:select];
-		[db bindString:track.persistentID toId:QTD_FIELDS+1];
+		[db bindString:track.persistentID toId:1];
 		[db next];
 		
 		// Check if the track was found
