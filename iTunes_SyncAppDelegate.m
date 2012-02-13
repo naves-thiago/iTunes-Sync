@@ -965,7 +965,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		if ( [[db fieldString:45] isEqualToString:track.persistentID] )
 		{
 			// Add to the diff table flagged as not deleted
-			[db prepareSQL:@"insert into diff_music (uuid, added, deleted) values (?001, 0, 1)"];
+			[db prepareSQL:@"insert into diff_music (uuid, added, deleted) values (?001, 0, 0)"];
 			[db bindString:track.persistentID toId:1];
 			[db execute];
 			[db endExec];
