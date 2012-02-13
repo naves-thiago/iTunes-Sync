@@ -504,6 +504,59 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[NSThread detachNewThreadSelector:@selector(readDB) toTarget:self withObject:nil];
 }
 
+-(IBAction)showDiff:(id)sender
+{
+	[self openLoadingPanel];
+	
+	// Set Indeterminate animation
+	[loadProgress setMaxValue:1.0];
+	[loadProgress setMinValue:0.0];
+	[loadProgress setDoubleValue:1.0];
+	[self animateProgress:TRUE];
+	
+	// Start loading db on a separate thread
+	[NSThread detachNewThreadSelector:@selector(listDiff) toTarget:self withObject:nil];
+}
+
+-(void)listDiff
+{
+	// List of track status ( new / deleted / none )
+	
+	
+	// For now, do nothing
+	[self animateProgress:FALSE];
+	[self closeLoadingPanel];
+	return;
+	
+	//TODO: Change text on the panel
+	
+#if 0
+	
+	// Create an autorelease pool
+	[[NSAutoreleasePool alloc] init];
+	
+	// Array with the track data
+	NSMutableArray * data;
+	
+	// Clear dataset
+	[dataset removeAllObjects];
+	
+	// Get the tracks
+	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
+	
+	// Set progress indicator
+	[loadProgress setMaxValue:(double)[tracks count]];
+	[loadProgress setDoubleValue:0.0];
+	
+	// Iterate
+	iTunesTrack * track;
+	for ( track in tracks )
+	{
+		//
+	}
+#endif	
+}
+
 -(IBAction)defaultCols:(id)sender
 {
 	[self setDefaultVisibleColumns];

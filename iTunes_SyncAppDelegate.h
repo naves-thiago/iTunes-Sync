@@ -73,6 +73,10 @@ typedef struct Field
 // ListDB button ( shows DB data on the table view )
 -(IBAction)listDB:(id)sender;
 
+// Show Diff button
+-(IBAction)showDiff:(id)sender;
+-(void)listDiff;
+
 // Changes current visible columns to those set as default on the fields vector
 -(IBAction)defaultCols:(id)sender;
 -(void)setDefaultVisibleColumns;
