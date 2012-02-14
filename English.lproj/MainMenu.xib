@@ -14,7 +14,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="576"/>
 			<integer value="372"/>
-			<integer value="552"/>
+			<integer value="553"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1777,7 +1777,7 @@
 						<object class="NSTextField" id="735023904">
 							<reference key="NSNextResponder" ref="579056358"/>
 							<int key="NSvFlags">301</int>
-							<string key="NSFrame">{{121, 62}, {225, 44}}</string>
+							<string key="NSFrame">{{151, 60}, {225, 44}}</string>
 							<reference key="NSSuperview" ref="579056358"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="9734754">
@@ -1905,7 +1905,7 @@
 						<object class="NSTextField" id="469353377">
 							<reference key="NSNextResponder" ref="561489619"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{126, 82}, {158, 34}}</string>
+							<string key="NSFrame">{{126, 82}, {324, 34}}</string>
 							<reference key="NSSuperview" ref="561489619"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="190945806">
@@ -3906,8 +3906,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="291180241"/>
 							<reference ref="382698610"/>
-							<reference ref="735023904"/>
 							<reference ref="455438828"/>
+							<reference ref="735023904"/>
 						</object>
 						<reference key="parent" ref="286171013"/>
 					</object>
@@ -4677,9 +4677,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{169, 158}, {467, 136}}</string>
+					<string>{{171, 145}, {467, 136}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{169, 158}, {467, 136}}</string>
+					<string>{{171, 145}, {467, 136}}</string>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
