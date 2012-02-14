@@ -31,9 +31,10 @@ typedef struct Field
 } field;
 
 @interface iTunes_SyncAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;			// Main window
-	NSWindow *noiTunesPanel;	// iTunes not open error panel
-	NSWindow *loadingPanel;		// Loading panel
+    NSWindow	*window;			// Main window
+	NSWindow	*noiTunesPanel;		// iTunes not open error panel
+	NSWindow	*loadingPanel;		// Loading panel
+	NSTextField *loadingText;		// Text on the loading panel
 	
 	IBOutlet NSTableView *grid;					// Main display grid
 	IBOutlet NSProgressIndicator *loadProgress; // Progress bar in loading panel
@@ -52,6 +53,7 @@ typedef struct Field
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSWindow *noiTunesPanel;
 @property (assign) IBOutlet NSWindow *loadingPanel;
+@property (assign) IBOutlet NSTextField *loadingText;
 
 // Play / Pause button
 -(IBAction)play:(id)sender;

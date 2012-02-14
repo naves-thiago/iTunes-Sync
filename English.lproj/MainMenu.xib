@@ -13,8 +13,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="576"/>
-			<integer value="552"/>
 			<integer value="372"/>
+			<integer value="552"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2750,6 +2750,14 @@
 					</object>
 					<int key="connectionID">616</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">loadingText</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="469353377"/>
+					</object>
+					<int key="connectionID">617</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4571,9 +4579,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{392, 516}, {749, 496}}</string>
+					<string>{{305, 518}, {749, 496}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{392, 516}, {749, 496}}</string>
+					<string>{{305, 518}, {749, 496}}</string>
 					<boolean value="NO"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -4768,7 +4776,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">616</int>
+			<int key="maxID">617</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4865,6 +4873,7 @@
 							<string>loadImage</string>
 							<string>loadProgress</string>
 							<string>loadingPanel</string>
+							<string>loadingText</string>
 							<string>noiTunesPanel</string>
 							<string>window</string>
 						</object>
@@ -4874,6 +4883,7 @@
 							<string>NSImageView</string>
 							<string>NSProgressIndicator</string>
 							<string>NSWindow</string>
+							<string>NSTextField</string>
 							<string>NSWindow</string>
 							<string>NSWindow</string>
 						</object>
@@ -4886,6 +4896,7 @@
 							<string>loadImage</string>
 							<string>loadProgress</string>
 							<string>loadingPanel</string>
+							<string>loadingText</string>
 							<string>noiTunesPanel</string>
 							<string>window</string>
 						</object>
@@ -4906,6 +4917,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">loadingPanel</string>
 								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">loadingText</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">noiTunesPanel</string>

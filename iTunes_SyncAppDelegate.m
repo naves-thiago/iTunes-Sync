@@ -10,7 +10,7 @@
 
 @implementation iTunes_SyncAppDelegate
 
-@synthesize window, noiTunesPanel, loadingPanel;
+@synthesize window, noiTunesPanel, loadingPanel, loadingText;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -383,6 +383,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)list:(id)sender
 {
+	// Set loading message
+	[loadingText setStringValue:@"Reading iTunes Library.\nPlease wait."];
+	
 	// Show loading sheet
 	[self openLoadingPanel];
 	
@@ -483,6 +486,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)fill:(id)sender
 {
+	// Set loading message
+	[loadingText setStringValue:@"Reading iTunes Library.\nPlease wait."];
+	
 	// Show loading sheet
 	[self openLoadingPanel];
 	
@@ -497,6 +503,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)listDB:(id)sender
 {
+	// Set loading message
+	[loadingText setStringValue:@"Reading database.\nPlease wait."];
+	
 	// Show loading panel
 	[self openLoadingPanel];
 	
@@ -506,6 +515,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)showDiff:(id)sender
 {
+	// Set loading message
+	[loadingText setStringValue:@"Making backup.\nPlease wait."];
+	
+	// Show loading panel
 	[self openLoadingPanel];
 	
 	// Set Indeterminate animation
