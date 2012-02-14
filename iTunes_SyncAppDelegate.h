@@ -118,6 +118,9 @@ typedef struct Field
 // Returns the insert SQL statement based on the fields vector
 -(NSString *)insertSQL;
 
+// Returns the select SQL statemente for the diff table
+-(NSString *)diffSQL;
+
 // Deletes all rows from music table
 -(void)emptyDB;
 
@@ -153,5 +156,11 @@ typedef struct Field
 
 // Stores the diff for a track in DB
 -(void)diffTrack:(iTunesTrack *)track;
+
+// Adds the Deleted and Added columns to the grid
+-(void)showDiffColumns;
+
+// Removes the Deleted and Added columns from the grid
+-(void)removeDiffColumns;
 
 @end

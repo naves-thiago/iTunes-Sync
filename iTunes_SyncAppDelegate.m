@@ -101,6 +101,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
 	NSMutableArray * a = [dataset objectAtIndex:row];
 	int ID;
+	
 	// Find which column we are at and return the value
 	ID = [[tableColumn identifier] integerValue]-1;
 	
@@ -339,6 +340,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	sql = [sql stringByAppendingFormat:@"%@ from music", fields[QTD_FIELDS-1].name];
 	return sql;
 }
+-(NSString *)diffSQL
+{
+	// Generate select SQL statement based on fields vector
+	int i;
+	NSString *sql = @"select ";
+	
+	for (i=0; i<QTD_FIELDS; i++)
+		sql = [sql stringByAppendingFormat:@"%@,", fields[i].name];
+	
+	sql = [sql stringByAppendingString:@"added, deleted from music"];
+
+	return sql;
+}
 
 -(NSString *)insertSQL
 {
@@ -383,6 +397,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)list:(id)sender
 {
+	// Remove Added and Deleted columns
+	[self removeDiffColumns];
+	
 	// Set loading message
 	[loadingText setStringValue:@"Reading iTunes Library.\nPlease wait."];
 	
@@ -418,7 +435,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	for ( track in tracks )
 	{
 		if ( abortFlag )
+		{
+			// Clear flag
+			abortFlag = FALSE;
 			break;
+		}
 		
 		data = [[NSMutableArray alloc] initWithCapacity:QTD_FIELDS];
 		
@@ -506,6 +527,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)listDB:(id)sender
 {
+	// Remove Added and Deleted columns
+	[self removeDiffColumns];
+	
 	// Set loading message
 	[loadingText setStringValue:@"Reading database.\nPlease wait."];
 	
@@ -538,39 +562,68 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
 	// List of track status ( new / deleted / none )
 	
-	
-	// For now, do nothing
-	[self animateProgress:FALSE];
-	[self closeLoadingPanel];
-	return;
-	
-	//TODO: Change text on the panel
-	
-#if 0
-	
-	// Create an autorelease pool
+	// Create a auto release pool, since we are running on a thread
 	[[NSAutoreleasePool alloc] init];
 	
-	// Array with the track data
-	NSMutableArray * data;
+	// Stop Indeterminate bar
+	[self animateProgress:FALSE];
 	
-	// Clear dataset
+	// Change loading text
+	[loadingText setStringValue:@"Comparing iTunes Library to DB.\nPlease wait."];
+	
+	// Store Diff on DB
+//	[self makeDiff];
+	
+	// Read DB
+	
+	// Clear current grid data
 	[dataset removeAllObjects];
 	
-	// Get the tracks
-	SBElementArray *tracks = [[[[[itunes sources] objectAtIndex:0] userPlaylists] objectAtIndex:0] fileTracks];
-	
 	// Set progress indicator
-	[loadProgress setMaxValue:(double)[tracks count]];
-	[loadProgress setDoubleValue:0.0];
+	[self animateProgress:YES];
 	
 	// Iterate
-	iTunesTrack * track;
-	for ( track in tracks )
+	[db prepareSQL:[self diffSQL]];
+	
+	NSMutableArray *array; // Buffer
+	int i;				   // Loop
+	
+	while ([db next])
 	{
-		//
+		array = [[NSMutableArray alloc] init];
+		
+		for (i=0; i<QTD_FIELDS; i++)
+		{
+			if (( fields[i].type == FT_STRING ) || ( fields[i].type == FT_DATE ))
+				[self addObject:[db fieldString:i] toArray:array];
+			else if ( fields[i].type == FT_INTEGER )
+				[array addObject:[NSString stringWithFormat:@"%d", [db fieldInt:i]]];
+			else if ( fields[i].type == FT_DOUBLE )
+				[array addObject:[NSString stringWithFormat:@"%f", [db fieldDouble:i]]];
+			else if ( fields[i].type == FT_BOOL )
+				[array addObject:[db fieldBoolean:i] ? @"True":@"False"];
+		}
+		
+		// Add "added" field
+		[array addObject:[db fieldBoolean:QTD_FIELDS]	? @"True":@"False"];
+		
+		// Add "deleted" field
+		[array addObject:[db fieldBoolean:QTD_FIELDS+1] ? @"True":@"False"];
+		
+		[dataset addObject:array];
 	}
-#endif	
+	
+	[db endExec];
+	
+	// Add columns for Deleted and Added fields
+	[self showDiffColumns];
+	
+	// Refresh grid
+	[grid reloadData];
+	
+	// Stop animation and close panel
+	[self animateProgress:NO];
+	[self closeLoadingPanel];
 }
 
 -(IBAction)defaultCols:(id)sender
@@ -879,6 +932,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			// Close the panel
 			[self closeLoadingPanel];
 			
+			// Clear flag
+			abortFlag = FALSE;
 			return;
 		}
 		
@@ -986,9 +1041,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
 	// Store the Library Diff for the sync
 	
-	// Create a auto release pool, since we are running on a thread
-	[[NSAutoreleasePool alloc] init];
-	
 	// Clear any old sync data to start a new one
 	[self clearDiffTable];
 	
@@ -1020,6 +1072,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			// Close the panel
 			[self closeLoadingPanel];
 			
+			// Clear flag
+			abortFlag = FALSE;
 			return;
 		}
 	
@@ -1053,6 +1107,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 			// Make the diff
 			[self diffTrack:track];
 		}
+		
+		[loadProgress incrementBy:1.0];
 	}
 	
 	// Add deleted tracks to the diff_music table marked as deleted
@@ -1071,7 +1127,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 -(void)diffTrack:(iTunesTrack *)track
-{
+{	
+	// TODO: Find a better way to do this
 	if ( ![[db fieldString:0] isEqualToString:track.name ] )
 	{
 		[db prepareSQL:@"update diff_music set name =?001 where uuid=?002"];
@@ -1493,6 +1550,38 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 		[db bindString:track.persistentID toId:2];
 		[db execute];
 		[db endExec];
+	}
+}
+
+-(void)showDiffColumns
+{
+	// Add columns for Deleted and Added fields
+	NSTableColumn *col;
+	
+	col = [[NSTableColumn alloc] init];
+	[col setIdentifier:[NSString stringWithFormat:@"%d", QTD_FIELDS]];
+	[[col headerCell] setStringValue:@"Added"];
+	[grid addTableColumn:col];
+	[col release];
+	
+	col = [[NSTableColumn alloc] init];
+	[col setIdentifier:[NSString stringWithFormat:@"%d", QTD_FIELDS+1]];
+	[[col headerCell] setStringValue:@"Deleted"];
+	[grid addTableColumn:col];
+	[col release];
+}
+
+-(void)removeDiffColumns
+{
+	// Clear current columns
+	int i =0;
+	while ( i < [[grid tableColumns] count] )
+	{
+		if (( [[[[grid tableColumns] objectAtIndex:i] identifier] integerValue] == QTD_FIELDS ) || 
+			( [[[[grid tableColumns] objectAtIndex:i] identifier] integerValue] == QTD_FIELDS+1 ))
+			[grid removeTableColumn:[[grid tableColumns] objectAtIndex:i]];
+		else
+			i++;
 	}
 }
 
