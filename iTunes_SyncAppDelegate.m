@@ -572,7 +572,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	[loadingText setStringValue:@"Comparing iTunes Library to DB.\nPlease wait."];
 	
 	// Store Diff on DB
-//	[self makeDiff];
+//	[self makeDiff]; << -- Commented to avoid generating diffs every time ( testing the showing of the diff now... )
 	
 	// Read DB
 	
