@@ -417,6 +417,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 	iTunesTrack * track;
 	for ( track in tracks )
 	{
+		if ( abortFlag )
+			break;
+		
 		data = [[NSMutableArray alloc] initWithCapacity:QTD_FIELDS];
 		
 		[self addObject:track.name toArray:data];
