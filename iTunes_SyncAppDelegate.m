@@ -80,6 +80,7 @@
 {
 	[db closeDB];
 	[db release];
+	[dataset release];
 	
 	// Record current window position
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
